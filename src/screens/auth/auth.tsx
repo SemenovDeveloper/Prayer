@@ -1,12 +1,13 @@
 import { SafeAreaView, Text } from 'react-native'
 import React from 'react'
 
-const LogIn = () => {
+SafeAreaView
+const Auth = () => {
   return (
     <SafeAreaView>
-      <Text>login</Text>
+      <Text>auth</Text>
     </SafeAreaView>
   )
 }
 
-export default LogIn
+export default Auth

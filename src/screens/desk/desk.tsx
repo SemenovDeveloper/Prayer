@@ -1,7 +1,7 @@
 import { SafeAreaView, Text } from 'react-native'
 import React from 'react'
 
-const Desk = () => {
+const Desk: React.FC = () => {
   return (
     <SafeAreaView>
       <Text>desk</Text>
