@@ -1,11 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Auth from '../screens/auth/auth';
+import { Auth, Card, Desk, DeskList } from 'myapp/screens';
 import React from 'react';
-import DeskList from '../screens/desklist/desklist';
-import Desk from '../screens/desk/desk';
-import Card from '../screens/card/card';
-
 
 const Stack = createNativeStackNavigator();
 
