@@ -1,6 +1,6 @@
+import { Navigation } from 'myapp/navigations';
 import React from 'react';
-import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
-import Navigation from './src/navigations';
+import { StyleSheet } from 'react-native';
 
 const App = () => {
   return (
