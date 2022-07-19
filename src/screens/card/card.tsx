@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native'
+import { Text, SafeAreaView } from 'react-native'
 import React from 'react'
 
-const card = () => {
+const Card = () => {
   return (
-    <View>
+    <SafeAreaView>
       <Text>card</Text>
-    </View>
+    </SafeAreaView>
   )
 }
 
-export default card
+export default Card

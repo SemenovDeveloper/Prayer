@@ -1,12 +1,13 @@
-import { View, Text } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
 
-const navigation = () => {
+const Navigation = () => {
+  
   return (
-    <View>
+    <SafeAreaView>
       <Text>navigation</Text>
-    </View>
+    </SafeAreaView>
   )
 }
 
-export default navigation
+export default Navigation

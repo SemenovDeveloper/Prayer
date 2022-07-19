@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native'
+import { SafeAreaView, Text } from 'react-native'
 import React from 'react'
 
-const logup = () => {
+const LogUp = () => {
   return (
-    <View>
+    <SafeAreaView>
       <Text>logup</Text>
-    </View>
+    </SafeAreaView>
   )
 }
 
-export default logup
+export default LogUp

@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native'
+import { SafeAreaView, Text } from 'react-native'
 import React from 'react'
 
-const desk = () => {
+const Desk = () => {
   return (
-    <View>
+    <SafeAreaView>
       <Text>desk</Text>
-    </View>
+    </SafeAreaView>
   )
 }
 
-export default desk
+export default Desk
