@@ -1,12 +1,13 @@
 import { SafeAreaView, StyleSheet, Text } from 'react-native'
 import React, { useState } from 'react'
+import { SignInForm, SignUpForm } from './components'
 
 export const Auth = () => {
-  const [isRegistrated, setIsRegistrated] = useState<boolean>(true)
+  const [isRegistrated, setIsRegistrated] = useState<boolean>(false)
   
   return (
     <SafeAreaView style={styles}>
-      {isRegistrated ? <Text>Log In</Text>: <Text>Log Up</Text>}
+      {isRegistrated ? <SignInForm /> : <SignUpForm />}
     </SafeAreaView>
   )
 }
