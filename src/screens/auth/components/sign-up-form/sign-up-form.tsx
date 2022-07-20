@@ -51,7 +51,7 @@ export const SignUpForm = () => {
         render={({field: {onChange, value}, fieldState: {error}}) => {
           return (
             <Input
-              placeholder="username"
+              placeholder="email"
               onChange={onChange}
               value={value}
               error={error}
@@ -76,11 +76,12 @@ export const SignUpForm = () => {
               onChange={onChange}
               value={value}
               error={error}
+              isSequre
             />
           );
         }}
       />
-      <Button />
+      <Button onPress={handleSubmit(onSubmit)} title="register" />
     </View>
   );
 };
