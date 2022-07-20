@@ -1,12 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import React from 'react';
 
-export const Button = () => {
-  return (
-    <View>
-      <Text>Button</Text>
-    </View>
-  )
+interface IButton {
+  onPress: () => void;
+  title: string;
 }
 
-const styles = StyleSheet.create({})
+export const Button: React.FC<IButton> = ({onPress, title}) => {
+  return (
+    <TouchableHighlight onPress={onPress}>
+      <Text>{title}</Text>
+    </TouchableHighlight>
+  );
+};
+
+const styles = StyleSheet.create({});

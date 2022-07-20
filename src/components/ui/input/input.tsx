@@ -7,6 +7,7 @@ interface IInput {
   value: string;
   onChange: (value: string) => void;
   error: FieldError | undefined;
+  isSequre?: boolean
 }
 
 export const Input: React.FC<IInput> = ({
@@ -14,6 +15,7 @@ export const Input: React.FC<IInput> = ({
   onChange,
   value,
   error,
+  isSequre
 }) => {
   return (
     <View>
@@ -21,6 +23,8 @@ export const Input: React.FC<IInput> = ({
         placeholder={placeholder}
         onChangeText={onChange}
         value={value}
+        secureTextEntry={isSequre}
+        autoCapitalize="none"
       />
       <View>{error && <Text>{error.message}</Text>}</View>
     </View>
