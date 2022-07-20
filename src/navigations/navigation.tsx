@@ -6,7 +6,7 @@ import React from 'react';
 const Stack = createNativeStackNavigator();
 
 export const Navigation = () => {
-  const token = true;
+  const token = false;
 
   return (
     <NavigationContainer>
