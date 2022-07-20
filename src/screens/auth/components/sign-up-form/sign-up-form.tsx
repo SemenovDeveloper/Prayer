@@ -1,8 +1,8 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {useForm, SubmitHandler, Controller} from 'react-hook-form';
-import {EMAIL_REGEX} from 'myapp/lib';
-import {Button, Input} from 'myapp/components';
+import {EMAIL_REGEX} from 'src/lib';
+import {Button, Input} from 'src/components';
 
 type UserProps = {
   username: string;
@@ -33,7 +33,7 @@ export const SignUpForm = () => {
         render={({field: {onChange, value}, fieldState: {error}}) => {
           return (
             <Input
-              placeholder="password"
+              placeholder="username"
               onChange={onChange}
               value={value}
               error={error}
