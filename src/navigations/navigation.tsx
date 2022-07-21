@@ -1,35 +1,9 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Card, Desk, DeskList} from 'src/screens';
 import React from 'react';
 import {AppNavigation} from './app-navigation';
-import {Auth} from './auth-navigation';
-
-const Stack = createNativeStackNavigator();
+import {AuthNavigation} from './auth-navigation';
 
 export const Navigation = () => {
   const token = false;
 
-  return (
-    <>
-      {token ? (
-        <AppNavigation />
-      ) : (
-        // <>
-        //   <Stack.Screen name="DeskList" component={DeskList} />
-        //   <Stack.Screen name="Desk" component={Desk} />
-        //   <Stack.Screen name="Card" component={Card} />
-        // </>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Auth"
-              component={Auth}
-              options={{title: 'Welcome'}}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      )}
-    </>
-  );
+  return <>{token ? <AppNavigation /> : <AuthNavigation />}</>;
 };

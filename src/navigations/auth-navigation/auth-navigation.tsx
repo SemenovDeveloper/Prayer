@@ -1,16 +1,20 @@
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {SignInForm, SignUpForm} from 'src/screens';
+import {AuthTabNavigation} from './auth-tab-navigation';
 
-const Tab = createMaterialTopTabNavigator();
+const Stack = createNativeStackNavigator();
 
-export const Auth = () => {
+export const AuthNavigation = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{swipeEnabled: false}}
-      initialRouteName={'Sign Up'}>
-      <Tab.Screen name="Sign Up" component={SignUpForm} />
-      <Tab.Screen name="Sign In" component={SignInForm} />
-    </Tab.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Auth"
+          component={AuthTabNavigation}
+          options={{title: 'PrayerX'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
