@@ -6,9 +6,9 @@ import {store} from 'src/store';
 
 const App = () => {
   return (
-    <Provider store={store}>
+    // <Provider store={store}>
       <Navigation />
-    </Provider>
+    // </Provider>r
   );
 };
 
