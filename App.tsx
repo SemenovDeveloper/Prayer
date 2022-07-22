@@ -1,17 +1,17 @@
-import { Navigation } from 'src/navigations';
+import {Navigation} from 'src/navigations';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
+import {Provider} from 'react-redux';
+import {store} from 'src/store';
 
 const App = () => {
   return (
-    <>
-     <Navigation /> 
-    </>
-  )
-}
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
+  );
+};
 
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({});
 
 export default App;

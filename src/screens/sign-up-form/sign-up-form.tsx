@@ -3,6 +3,7 @@ import React from 'react';
 import {useForm, SubmitHandler, Controller} from 'react-hook-form';
 import {EMAIL_REGEX} from 'src/lib';
 import {Button, Input} from 'src/components';
+import {api} from 'src/api';
 
 type UserProps = {
   username: string;
@@ -10,16 +11,27 @@ type UserProps = {
   password: string;
 };
 
+export interface IUser {
+	name: string,
+	email: string,
+	token: string,
+	id: number
+}
+
 export const SignUpForm = () => {
   const {control, handleSubmit} = useForm<UserProps>();
   const onSubmit: SubmitHandler<UserProps> = async data => {
-    console.log(data);
-    
+    try {
+      const response = await api.post(`auth/sign-up`, data);
+      const resdata = response
+      console.log(resdata);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <View>
-      <Text>Sign Up</Text>
       <Controller
         control={control}
         name="username"
