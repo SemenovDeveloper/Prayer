@@ -11,9 +11,11 @@ export const Container: React.FC<IContainer> = ({children}) => {
 
 const styles = StyleSheet.create({
   default: {
+    height: '100%',
     padding: 15,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    backgroundColor: '#FFFFFF'
   },
 });
