@@ -12,7 +12,16 @@ export const AuthNavigation = () => {
         <Stack.Screen
           name="Auth"
           component={AuthTabNavigation}
-          options={{title: 'PrayerX'}}
+          options={{
+            title: 'PrayerX',
+            headerStyle: {
+            },
+            headerTitleStyle: {
+              fontSize: 17,
+              fontWeight: 'bold',
+              color: '#514D47',
+            },
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
