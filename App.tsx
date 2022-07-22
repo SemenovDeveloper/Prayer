@@ -8,8 +8,8 @@ const App = () => {
   return (
     // <Provider store={store}>
       <Navigation />
-    // </Provider>r
-  );
+    // </Provider>
+  )
 };
 
 const styles = StyleSheet.create({});

@@ -1,8 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 import {useForm, SubmitHandler, Controller} from 'react-hook-form';
 import {EMAIL_REGEX} from 'src/lib';
-import {Button, Input} from 'src/components';
+import {Button, Container, Input} from 'src/components';
 
 type UserProps = {
   username: string;
@@ -17,18 +17,18 @@ export const SignInForm = () => {
   };
 
   return (
-    <View>
+    <Container>
       <Controller
         control={control}
         name="email"
         rules={{
-          required: 'Email is not valid',
+          required: 'Wrong format of email',
           pattern: EMAIL_REGEX,
         }}
         render={({field: {onChange, value}, fieldState: {error}}) => {
           return (
             <Input
-              placeholder="email"
+              placeholder="Email"
               onChange={onChange}
               value={value}
               error={error}
@@ -49,7 +49,7 @@ export const SignInForm = () => {
         render={({field: {onChange, value}, fieldState: {error}}) => {
           return (
             <Input
-              placeholder="password"
+              placeholder="Password"
               onChange={onChange}
               value={value}
               error={error}
@@ -58,8 +58,8 @@ export const SignInForm = () => {
           );
         }}
       />
-      <Button onPress={handleSubmit(onSubmit)} title="login" />
-    </View>
+      <Button onPress={handleSubmit(onSubmit)} title="SIGN IN" />
+    </Container>
   );
 };
 

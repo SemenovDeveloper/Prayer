@@ -1,8 +1,7 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {useForm, SubmitHandler, Controller} from 'react-hook-form';
 import {EMAIL_REGEX} from 'src/lib';
-import {Button, Input} from 'src/components';
+import {Button, Container, Input} from 'src/components';
 import {api} from 'src/api';
 
 type UserProps = {
@@ -21,17 +20,17 @@ export interface IUser {
 export const SignUpForm = () => {
   const {control, handleSubmit} = useForm<UserProps>();
   const onSubmit: SubmitHandler<UserProps> = async data => {
-    try {
-      const response = await api.post(`auth/sign-up`, data);
-      const resdata = response
-      console.log(resdata);
-    } catch (e) {
-      console.log(e);
-    }
+    // try {
+    //   const response = await api.post(`auth/sign-up`, data);
+    //   const resdata = response
+    //   console.log(resdata);
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
 
   return (
-    <View>
+    <Container>
       <Controller
         control={control}
         name="username"
@@ -45,7 +44,7 @@ export const SignUpForm = () => {
         render={({field: {onChange, value}, fieldState: {error}}) => {
           return (
             <Input
-              placeholder="username"
+              placeholder="Username"
               onChange={onChange}
               value={value}
               error={error}
@@ -57,13 +56,13 @@ export const SignUpForm = () => {
         control={control}
         name="email"
         rules={{
-          required: 'Email is not valid',
+          required: 'Wrong format of email',
           pattern: EMAIL_REGEX,
         }}
         render={({field: {onChange, value}, fieldState: {error}}) => {
           return (
             <Input
-              placeholder="email"
+              placeholder="Email"
               onChange={onChange}
               value={value}
               error={error}
@@ -84,7 +83,7 @@ export const SignUpForm = () => {
         render={({field: {onChange, value}, fieldState: {error}}) => {
           return (
             <Input
-              placeholder="password"
+              placeholder="Password"
               onChange={onChange}
               value={value}
               error={error}
@@ -93,9 +92,8 @@ export const SignUpForm = () => {
           );
         }}
       />
-      <Button onPress={handleSubmit(onSubmit)} title="register" />
-    </View>
+      <Button onPress={handleSubmit(onSubmit)} title="SIGN UP" />
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({});
