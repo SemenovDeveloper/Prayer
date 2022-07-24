@@ -14,6 +14,13 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-Prayer-PrayerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Prayer-PrayerTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		4F769DE315174CE48B8FBF62 /* SFUIDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56D5302E2971415F87C8D079 /* SFUIDisplay-Bold.otf */; };
+		5DF0F36C1040498E9DB761F5 /* SFUIDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04D4D5C2F62745DB8F1A4F44 /* SFUIDisplay-Light.otf */; };
+		8628BF7299A54315AB52C900 /* SFUIDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E3F0AFD26CB4797B5B64274 /* SFUIDisplay-Medium.otf */; };
+		FACBEDA86251486099E0C277 /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2D7E16632A75464F80C4FFCC /* SFUIDisplay-Regular.otf */; };
+		103D124AB5AE4EFAA1F94D64 /* SFUIDisplay-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B0AC67AC767F4717A0AE7C71 /* SFUIDisplay-Semibold.otf */; };
+		11BB66429A9F46149FA96173 /* SFUIText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9FE012DC2B644E8CBF8E93D9 /* SFUIText-Bold.ttf */; };
+		E690DF28BDA3485BB03462E6 /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3C9DDA534544CF3AB671567 /* SFUIText-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +51,13 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Prayer/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Prayer-PrayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prayer-PrayerTests.release.xcconfig"; path = "Target Support Files/Pods-Prayer-PrayerTests/Pods-Prayer-PrayerTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		56D5302E2971415F87C8D079 /* SFUIDisplay-Bold.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Bold.otf"; path = "../src/assets/fonts/SFUIDisplay-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		04D4D5C2F62745DB8F1A4F44 /* SFUIDisplay-Light.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Light.otf"; path = "../src/assets/fonts/SFUIDisplay-Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4E3F0AFD26CB4797B5B64274 /* SFUIDisplay-Medium.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Medium.otf"; path = "../src/assets/fonts/SFUIDisplay-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2D7E16632A75464F80C4FFCC /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Regular.otf"; path = "../src/assets/fonts/SFUIDisplay-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B0AC67AC767F4717A0AE7C71 /* SFUIDisplay-Semibold.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Semibold.otf"; path = "../src/assets/fonts/SFUIDisplay-Semibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9FE012DC2B644E8CBF8E93D9 /* SFUIText-Bold.ttf */ = {isa = PBXFileReference; name = "SFUIText-Bold.ttf"; path = "../src/assets/fonts/SFUIText-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C3C9DDA534544CF3AB671567 /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; name = "SFUIText-Regular.ttf"; path = "../src/assets/fonts/SFUIText-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +136,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				B46E9017D32345FE8B2470DD /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +162,21 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		B46E9017D32345FE8B2470DD /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				56D5302E2971415F87C8D079 /* SFUIDisplay-Bold.otf */,
+				04D4D5C2F62745DB8F1A4F44 /* SFUIDisplay-Light.otf */,
+				4E3F0AFD26CB4797B5B64274 /* SFUIDisplay-Medium.otf */,
+				2D7E16632A75464F80C4FFCC /* SFUIDisplay-Regular.otf */,
+				B0AC67AC767F4717A0AE7C71 /* SFUIDisplay-Semibold.otf */,
+				9FE012DC2B644E8CBF8E93D9 /* SFUIText-Bold.ttf */,
+				C3C9DDA534544CF3AB671567 /* SFUIText-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -244,6 +274,13 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				4F769DE315174CE48B8FBF62 /* SFUIDisplay-Bold.otf in Resources */,
+				5DF0F36C1040498E9DB761F5 /* SFUIDisplay-Light.otf in Resources */,
+				8628BF7299A54315AB52C900 /* SFUIDisplay-Medium.otf in Resources */,
+				FACBEDA86251486099E0C277 /* SFUIDisplay-Regular.otf in Resources */,
+				103D124AB5AE4EFAA1F94D64 /* SFUIDisplay-Semibold.otf in Resources */,
+				11BB66429A9F46149FA96173 /* SFUIText-Bold.ttf in Resources */,
+				E690DF28BDA3485BB03462E6 /* SFUIText-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

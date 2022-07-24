@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     borderColor: '#E5E5E5',
     borderWidth: 1,
     borderRadius: 10,
-    // fontFamily: 'SFUIText-Regular',
+    fontFamily: 'SFUIText-Regular',
     fontSize: 17,
     color: '#9C9C9C',
   },
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   errorText: {
     paddingLeft: 10,
     color: '#AC5253',
-    // fontFamily: 'SFUIText-Regular',
+    fontFamily: 'SFUIText-Regular',
     fontSize: 14,
     lineHeight: 16,
   },

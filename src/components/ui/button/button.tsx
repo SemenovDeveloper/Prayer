@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(66, 78, 117, 0.1)',
   },
   text: {
-    // fontFamily: 'SFUIText-Regular',
+    fontFamily: 'SFUIText-Regular',
     fontSize: 12,
     lineHeight: 14,
     color: 'white',

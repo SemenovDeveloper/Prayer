@@ -8,11 +8,11 @@ export const AuthTabNavigation = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarLabelStyle: { fontSize: 13 },
-        tabBarItemStyle: { paddingBottom: 16},
+        tabBarLabelStyle: {fontSize: 13, fontFamily: 'SFUIText-Regular'},
+        tabBarItemStyle: {paddingBottom: 16},
         tabBarActiveTintColor: '#72A8BC',
         tabBarInactiveTintColor: '#C8C8C8',
-        tabBarIndicatorStyle: {backgroundColor: '#72A8BC'}
+        tabBarIndicatorStyle: {backgroundColor: '#72A8BC'},
       }}
       initialRouteName={'Sign Up'}>
       <Tab.Screen name="Sign Up" component={SignUpForm} />

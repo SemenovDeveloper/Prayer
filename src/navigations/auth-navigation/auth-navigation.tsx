@@ -20,6 +20,7 @@ export const AuthNavigation = () => {
               fontSize: 17,
               fontWeight: 'bold',
               color: '#514D47',
+              fontFamily: 'SFUIText-Regular',
             },
           }}
         />
