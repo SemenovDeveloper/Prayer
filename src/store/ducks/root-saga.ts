@@ -1,9 +1,9 @@
 import {all} from 'redux-saga/effects';
-import {SignUpWatcher} from './user/user-sagas';
+import {SignInWatcher, SignUpWatcher} from './user/user-sagas';
 
 export function* rootSaga() {
   yield all([
-   SignUpWatcher()
+   SignUpWatcher(),
+   SignInWatcher(),
   ])
-
 }

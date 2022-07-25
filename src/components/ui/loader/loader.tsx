@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import React from 'react'
 
 export const Loader = () => {

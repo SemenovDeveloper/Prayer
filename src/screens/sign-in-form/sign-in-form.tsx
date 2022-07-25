@@ -1,19 +1,18 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import React from 'react';
 import {useForm, SubmitHandler, Controller} from 'react-hook-form';
 import {EMAIL_REGEX} from 'src/lib';
-import {Button, Container, Input} from 'src/components';
-
-type UserProps = {
-  username: string;
-  email: string;
-  password: string;
-};
+import {Button, Container, Input, Loader} from 'src/components';
+import {useAppDispatch, useAppSelector} from 'src/hooks';
+import {ISignIn, signIn} from 'src/store/ducks';
 
 export const SignInForm = () => {
-  const {control, handleSubmit} = useForm<UserProps>();
-  const onSubmit: SubmitHandler<UserProps> = async data => {
-    console.log(data);
+  const {control, handleSubmit} = useForm<ISignIn>();
+  const {isLoading, error} = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
+  
+  const onSubmit: SubmitHandler<ISignIn> = async data => {
+    dispatch(signIn(data));
   };
 
   return (
@@ -58,7 +57,12 @@ export const SignInForm = () => {
           );
         }}
       />
-      <Button onPress={handleSubmit(onSubmit)} title="SIGN IN" />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Button onPress={handleSubmit(onSubmit)} title="SIGN IN" />
+      )}
+      {error && <Text>{error}</Text>}
     </Container>
   );
 };

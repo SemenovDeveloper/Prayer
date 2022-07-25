@@ -1,7 +1,8 @@
 import {createReducer, PayloadAction} from '@reduxjs/toolkit';
 import {IUser} from 'src/types';
 import {IUserState} from './types';
-import {isLoading, signInSuccess, signUpError} from './user-actions';
+import {isLoading, registerError, signInSuccess} from './user-actions';
+
 const initialState: IUserState = {
   isLoading: false,
   error: '',
@@ -18,13 +19,10 @@ export const userReducer = createReducer<IUserState>(initialState, {
     state.isLoading = false;
     state.error = '';
   },
-  [signUpError.type]: (state, action: PayloadAction<string>) => {
+  [registerError.type]: (state, action: PayloadAction<string>) => {
     state.isLoading = false;
     state.error = action.payload;
   },
-  // [logOutUser.type]: (state, action) => {
-  //   return initialState;
-  // },
 });
 
 export default userReducer;

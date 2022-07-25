@@ -27,7 +27,9 @@ export const Input: React.FC<IInput> = ({
         autoCapitalize="none"
         style={styles.input}
       />
-      <View style={styles.errorContainer}>{error && <Text style={styles.errorText}>{error.message}</Text>}</View>
+      <View style={styles.errorContainer}>
+        {error && <Text style={styles.errorText}>{error.message}</Text>}
+      </View>
     </View>
   );
 };

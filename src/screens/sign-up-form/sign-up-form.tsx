@@ -2,14 +2,15 @@ import React from 'react';
 import {useForm, SubmitHandler, Controller} from 'react-hook-form';
 import {EMAIL_REGEX} from 'src/lib';
 import {Button, Container, Input, Loader} from 'src/components';
-import {api} from 'src/api';
 import {ISignUp, signUp} from 'src/store/ducks';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {Text} from 'react-native';
+
 export const SignUpForm = () => {
   const {control, handleSubmit} = useForm<ISignUp>();
   const {isLoading, error} = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
+
   const onSubmit: SubmitHandler<ISignUp> = async data => {
     dispatch(signUp(data));
   };
