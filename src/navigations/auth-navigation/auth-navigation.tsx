@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 export const AuthNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>
         <Stack.Screen
           name="Auth"
           component={AuthTabNavigation}
