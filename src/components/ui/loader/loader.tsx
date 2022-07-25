@@ -3,6 +3,6 @@ import React from 'react'
 
 export const Loader = () => {
   return (
-    <ActivityIndicator size='large' color='black'/>
+    <ActivityIndicator size='large' color='#BFB393'/>
   )
 }

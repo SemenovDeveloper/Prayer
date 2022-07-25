@@ -1,39 +1,24 @@
 import React from 'react';
 import {useForm, SubmitHandler, Controller} from 'react-hook-form';
 import {EMAIL_REGEX} from 'src/lib';
-import {Button, Container, Input} from 'src/components';
+import {Button, Container, Input, Loader} from 'src/components';
 import {api} from 'src/api';
-
-type UserProps = {
-  username: string;
-  email: string;
-  password: string;
-};
-
-export interface IUser {
-	name: string,
-	email: string,
-	token: string,
-	id: number
-}
-
+import {ISignUp, signUp} from 'src/store/ducks';
+import {useAppDispatch, useAppSelector} from 'src/hooks';
+import {Text} from 'react-native';
 export const SignUpForm = () => {
-  const {control, handleSubmit} = useForm<UserProps>();
-  const onSubmit: SubmitHandler<UserProps> = async data => {
-    // try {
-    //   const response = await api.post(`auth/sign-up`, data);
-    //   const resdata = response
-    //   console.log(resdata);
-    // } catch (e) {
-    //   console.log(e);
-    // }
+  const {control, handleSubmit} = useForm<ISignUp>();
+  const {isLoading, error} = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
+  const onSubmit: SubmitHandler<ISignUp> = async data => {
+    dispatch(signUp(data));
   };
 
   return (
     <Container>
       <Controller
         control={control}
-        name="username"
+        name="name"
         rules={{
           required: 'Username is missing',
           minLength: {
@@ -92,8 +77,12 @@ export const SignUpForm = () => {
           );
         }}
       />
-      <Button onPress={handleSubmit(onSubmit)} title="SIGN UP" />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Button onPress={handleSubmit(onSubmit)} title="SIGN UP" />
+      )}
+      {error && <Text>{error}</Text>}
     </Container>
   );
 };
-

@@ -1,9 +1,9 @@
 import {all} from 'redux-saga/effects';
+import {SignUpWatcher} from './user/user-sagas';
 
 export function* rootSaga() {
   yield all([
-    // helloSaga(),
-    // watchIncrementAsync()
+   SignUpWatcher()
   ])
-  // code after all-effect
+
 }

@@ -3,9 +3,10 @@ import {rootReducer} from './ducks';
 import {rootSaga} from './ducks/';
 import {configureStore} from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
+import logger from "redux-logger";
 
 const sagaMiddleware = createSagaMiddleware();
-const middleware = [sagaMiddleware];
+const middleware = [sagaMiddleware, logger];
 
 export const store = configureStore({
   reducer: rootReducer,
