@@ -1,7 +1,7 @@
 export type TypeRootStackParams ={
   LogUp: undefined
   LogIn: undefined
-  DeskList: undefined
+  ColumnsList: undefined
   Desk: undefined
   Card: undefined
 }

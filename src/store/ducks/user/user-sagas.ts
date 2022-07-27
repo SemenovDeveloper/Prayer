@@ -4,7 +4,7 @@ import {isLoading, registerError, signInSuccess} from './user-actions';
 import {ISignUp, ISignIn} from './types';
 import {api} from 'src/api';
 import {IUser} from 'src/types';
-registerError;
+
 const signUpRequest = async (signUpData: ISignUp) => {
   const {data} = await api.post(`auth/sign-up`, signUpData);
   return data;
@@ -40,8 +40,12 @@ const signInRequest = async (signInData: ISignIn) => {
 function* signInWorker(
   action: PayloadAction<{email: string; password: string}>,
 ) {
+  console.log("signInWorker");
+  
   const {email, password} = action.payload;
   const signInData = {email, password};
+  console.log("signInWorcker");
+  
   try {
     yield put(isLoading(true));
     const response: IUser = yield call(signInRequest, signInData);

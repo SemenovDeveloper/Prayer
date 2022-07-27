@@ -2,6 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Card, Desk, ColumnsList} from 'src/screens';
 import {NavigationContainer} from '@react-navigation/native';
+import PlusIcon from 'src/assets/icons/plus-icon';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,6 +14,7 @@ export const AppNavigation = () => {
           name="ColumnsList"
           component={ColumnsList}
           options={{
+            headerRight: () => <PlusIcon />,
             title: 'My Desk',
             headerStyle: {},
             headerTitleStyle: {
