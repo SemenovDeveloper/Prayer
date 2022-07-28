@@ -1,20 +1,34 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Card, Desk, ColumnsList} from 'src/screens';
+import {Card, Desk, ColumnsList, AddColumnForm} from 'src/screens';
 import {NavigationContainer} from '@react-navigation/native';
-import PlusIcon from 'src/assets/icons/plus-icon';
+import {AddColumnButton} from 'src/components';
+import {route} from './routes';
+import {
+  StackNavigationProp,
+} from '@react-navigation/stack';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  ColumnsList: undefined;
+  AddColumnForm: undefined;
+  Desk: undefined;
+  Card: undefined;
+};
+
+export type ProfileScreenNavigationProp =
+  StackNavigationProp<RootStackParamList>;
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const AppNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>
+      <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}} initialRouteName={route.COLUMNS_LIST}>
         <Stack.Screen
-          name="ColumnsList"
+          name={route.COLUMNS_LIST}
           component={ColumnsList}
           options={{
-            headerRight: () => <PlusIcon />,
+            headerRight: () => <AddColumnButton/>,
             title: 'My Desk',
             headerStyle: {},
             headerTitleStyle: {
@@ -25,8 +39,9 @@ export const AppNavigation = () => {
             },
           }}
         />
-        <Stack.Screen name="Desk" component={Desk} />
-        <Stack.Screen name="Card" component={Card} />
+        <Stack.Screen name={route.ADD_COLUMN_ROUTE} component={AddColumnForm} />
+        <Stack.Screen name={route.DESK_ROUTE} component={Desk} />
+        <Stack.Screen name={route.CARD_ROUTE} component={Card} />
       </Stack.Navigator>
     </NavigationContainer>
   );
