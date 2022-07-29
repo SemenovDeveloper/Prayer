@@ -6,6 +6,6 @@ prayersReducer
 
 export const rootReducer = combineReducers({
   user: userReducer,
-  columns: columnReducer,
+  column: columnReducer,
   prayers: prayersReducer
 });

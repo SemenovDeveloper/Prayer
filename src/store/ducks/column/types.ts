@@ -5,3 +5,9 @@ export interface IColumnState {
   error: string
   columns: IColumn[]
 }
+
+export interface IAddColumn {
+  title: string;
+  description: string;
+  prayerId: number;
+}

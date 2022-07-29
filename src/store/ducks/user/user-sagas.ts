@@ -40,11 +40,8 @@ const signInRequest = async (signInData: ISignIn) => {
 function* signInWorker(
   action: PayloadAction<{email: string; password: string}>,
 ) {
-  console.log("signInWorker");
-  
   const {email, password} = action.payload;
   const signInData = {email, password};
-  console.log("signInWorcker");
   
   try {
     yield put(isLoading(true));

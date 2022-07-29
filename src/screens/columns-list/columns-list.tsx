@@ -5,7 +5,7 @@ import {Container, Loader} from 'src/components';
 import {getColumns} from 'src/store/ducks/column';
 
 export const ColumnsList: React.FC = () => {
-  const {isLoading, error, columns} = useAppSelector(state => state.columns);
+  const {isLoading, error, columns} = useAppSelector(state => state.column);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getColumns());
@@ -14,6 +14,7 @@ export const ColumnsList: React.FC = () => {
   return (
     <Container>
       {isLoading && <Loader />}
+      {error && <Text>{error}</Text>}
       {columns.map(column => (
         <View style={styles.card} key={column.id}>
           <Text style={styles.title}>{column.title}</Text>

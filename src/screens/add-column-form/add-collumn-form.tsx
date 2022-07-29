@@ -1,12 +1,70 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+import {useForm, SubmitHandler, Controller} from 'react-hook-form';
+import {Button, Container, Input, Loader} from 'src/components';
+import {useAppDispatch, useAppSelector} from 'src/hooks';
+import {Text} from 'react-native';
+import {addColumn, IAddColumn} from 'src/store/ducks';
+import {useNavigation} from '@react-navigation/native';
+import {ProfileScreenNavigationProp} from 'src/navigations';
 
-export const AddColumnForm= () => {
+export const AddColumnForm = () => {
+  const {control, handleSubmit} = useForm<IAddColumn>({
+    defaultValues: {
+      title: '',
+      description: '',
+      prayerId: 0,
+    },
+  });
+  const {isLoading, error} = useAppSelector(state => state.column);
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const onSubmit: SubmitHandler<IAddColumn> = async data => {
+    await dispatch(addColumn(data));
+    await navigation.navigate('ColumnsList');
+  };
+
   return (
-    <View>
-      <Text>add-collumn-form</Text>
-    </View>
-  )
-}
-
-const styles = StyleSheet.create({})
+    <Container>
+      <Controller
+        control={control}
+        name="title"
+        rules={{
+          required: true,
+        }}
+        render={({field: {onChange, value}, fieldState: {error}}) => {
+          return (
+            <Input
+              placeholder="Column Title"
+              onChange={onChange}
+              value={value}
+              error={error}
+            />
+          );
+        }}
+      />
+      <Controller
+        control={control}
+        name="description"
+        rules={{
+          required: true,
+        }}
+        render={({field: {onChange, value}, fieldState: {error}}) => {
+          return (
+            <Input
+              placeholder="Add Description"
+              onChange={onChange}
+              value={value}
+              error={error}
+            />
+          );
+        }}
+      />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Button onPress={handleSubmit(onSubmit)} title="Create Columm" />
+      )}
+      {error && <Text>{error}</Text>}
+    </Container>
+  );
+};

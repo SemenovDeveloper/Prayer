@@ -1,9 +1,7 @@
 import {createReducer, PayloadAction} from '@reduxjs/toolkit';
 import { IColumn } from 'src/types';
-import { setColumns, setColumnsError, setColumnsIsLoading } from './column-actions';
+import { setColumns, setColumnsError, setColumnsIsLoading, setNewColumn } from './column-actions';
 import { IColumnState } from './types';
-setColumns
-
 
 const initialState: IColumnState = {
   isLoading: false,
@@ -24,6 +22,11 @@ export const columnReducer = createReducer<IColumnState>(initialState, {
   [setColumnsError.type]: (state, action: PayloadAction<string>) => {
     state.isLoading = false;
     state.error = action.payload;
+  },
+  [setNewColumn.type]: (state, action: PayloadAction<IColumn>) => {
+    state.columns.push(action.payload)
+    state.isLoading = false;
+    state.error = '';
   },
 });
 
