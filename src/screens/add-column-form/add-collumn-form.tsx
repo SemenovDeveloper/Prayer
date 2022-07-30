@@ -28,8 +28,13 @@ export const AddColumnForm = () => {
       <Controller
         control={control}
         name="title"
+        
         rules={{
-          required: true,
+          required: 'Title is missing',
+          maxLength: {
+            value: 99,
+            message: 'Title must be less than 99 characters long',
+          },
         }}
         render={({field: {onChange, value}, fieldState: {error}}) => {
           return (
@@ -45,9 +50,9 @@ export const AddColumnForm = () => {
       <Controller
         control={control}
         name="description"
-        rules={{
-          required: true,
-        }}
+        // rules={{
+        //   required: true,
+        // }}
         render={({field: {onChange, value}, fieldState: {error}}) => {
           return (
             <Input

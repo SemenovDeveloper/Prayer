@@ -1,10 +1,10 @@
 import { SafeAreaView, Text } from 'react-native'
 import React from 'react'
 
-export const Desk: React.FC = () => {
+export const Column: React.FC = () => {
   return (
     <SafeAreaView>
-      <Text>desk</Text>
+      <Text>Column</Text>
     </SafeAreaView>
   )
 }

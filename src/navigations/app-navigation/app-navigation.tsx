@@ -1,6 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Card, Desk, ColumnsList, AddColumnForm} from 'src/screens';
+import {Card, Column, ColumnsList, AddColumnForm} from 'src/screens';
 import {NavigationContainer} from '@react-navigation/native';
 import {AddColumnButton} from 'src/components';
 import {route} from './routes';
@@ -10,7 +10,7 @@ import {StyleSheet} from 'react-native';
 export type RootStackParamList = {
   ColumnsList: undefined;
   AddColumnForm: undefined;
-  Desk: undefined;
+  Column: undefined;
   Card: undefined;
 };
 
@@ -43,8 +43,8 @@ export const AppNavigation = () => {
           }}
         />
         <Stack.Screen
-          name={route.DESK_ROUTE}
-          component={Desk}
+          name={route.COLUMN_ROUTE}
+          component={Column}
           options={{
             title: 'Desk',
             headerTitleStyle: styles.header,
