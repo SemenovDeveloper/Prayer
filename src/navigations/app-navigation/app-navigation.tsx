@@ -10,7 +10,7 @@ import {StyleSheet} from 'react-native';
 export type RootStackParamList = {
   ColumnsList: undefined;
   AddColumnForm: undefined;
-  Column: undefined;
+  Column: {columnId: number, columnTitle: string};
   Card: undefined;
 };
 
