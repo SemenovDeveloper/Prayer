@@ -12,7 +12,7 @@ export interface IColumn {
 	description: string
 }
 
-export interface ICard {
+export interface IPrayer {
 	id: number,
 	columnId: number,
 	title: string,

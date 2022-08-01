@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import logger from "redux-logger";
 
 const sagaMiddleware = createSagaMiddleware();
-const middleware = [sagaMiddleware, logger];
+const middleware = [sagaMiddleware];
 
 export const store = configureStore({
   reducer: rootReducer,

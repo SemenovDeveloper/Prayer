@@ -10,8 +10,7 @@ import {
 import {useWindowDimensions, Text, View, StyleSheet} from 'react-native';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
-import {MyPrayers} from '../my-prayers';
-import {Subscribed} from '../subscribed';
+import {MyPrayers, Subscribed} from 'src/screens';
 
 interface IColumnScreen {
   columnId: number;
@@ -24,7 +23,7 @@ interface ITabRoute {
   };
 }
 
-export const Column = () => {
+export const ColumnTabNavigation = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [index, setIndex] = useState(0);

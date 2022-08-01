@@ -1,14 +1,14 @@
 import {all} from 'redux-saga/effects';
-import { addColumn, addColumnWatcher, getColumns, getColumnsWatcher } from './column';
-
-import { getPrayers } from './prayers/prayers-actions';
+import { addColumnWatcher, getColumnsWatcher } from './column';
+import { addNewPrayerWatcher, getPrayersWatcher } from './prayers/prayers-sagas';
 import {SignInWatcher, SignUpWatcher} from './user/user-sagas';
 export function* rootSaga() {
   yield all([
    SignUpWatcher(),
    SignInWatcher(),
-   getPrayers(),
+   getPrayersWatcher(),
    getColumnsWatcher(),
-   addColumnWatcher()
+   addColumnWatcher(),
+   addNewPrayerWatcher(),
   ])
 }

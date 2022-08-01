@@ -4,12 +4,14 @@ import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {Container, Loader} from 'src/components';
 import {getColumns} from 'src/store/ducks/column';
 import {ColumnListItem} from './components';
+import { getPrayers } from 'src/store/ducks/prayers/prayers-actions';
 
 export const ColumnsList: React.FC = () => {
   const {isLoading, error, columns} = useAppSelector(state => state.column);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getColumns());
+    dispatch(getPrayers())
   }, []);
   return (
     <Container>

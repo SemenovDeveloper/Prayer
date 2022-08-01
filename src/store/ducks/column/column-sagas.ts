@@ -21,7 +21,6 @@ function* getColumnsWorker() {
     const response: IColumn[] = yield call(fetchColumns);
     yield put(setColumns(response));
   } catch (err: any) {
-    setColumnsError;
     yield put(setColumnsError(err.message));
   }
 }
