@@ -22,6 +22,7 @@ export const AuthNavigation = () => {
               color: '#514D47',
               fontFamily: 'SFUIText-Regular',
             },
+            headerShadowVisible: false,
           }}
         />
       </Stack.Navigator>

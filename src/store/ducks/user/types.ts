@@ -17,8 +17,6 @@ export interface ISignUp {
 	password: string
 } 
 
-export type error = string
-
 export type AuthResponse = {
 	data: IUser
 }

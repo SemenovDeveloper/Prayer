@@ -6,6 +6,7 @@ import {AddColumnButton} from 'src/components';
 import {route} from './routes';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StyleSheet} from 'react-native';
+import { ColumnTabNavigator } from './column-tab-navigator';
 
 export type RootStackParamList = {
   ColumnsList: undefined;
@@ -46,8 +47,8 @@ export const AppNavigation = () => {
           name={route.COLUMN_ROUTE}
           component={Column}
           options={{
-            title: 'Desk',
             headerTitleStyle: styles.header,
+            headerShadowVisible: false,
           }}
         />
         <Stack.Screen
