@@ -9,7 +9,7 @@ import {
 import {RowMap, SwipeListView} from 'react-native-swipe-list-view';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {IPrayer} from 'src/types';
-import {addNewPrayer} from 'src/store/ducks/prayers';
+import {addNewPrayer, deletePrayer} from 'src/store/ducks/prayers';
 import {Button, Container, PrayerItem} from 'src/components';
 import PlusIcon from 'src/assets/icons/plus-icon';
 import {getColumns} from 'src/store/ducks';
@@ -42,8 +42,7 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
 
   const deleteRow = (rowMap: RowMap<IPrayer>, prayerId: number) => {
     closeRow(rowMap, prayerId);
-    console.log('delete row', prayerId);
-    // dispatch(deletePrayer(prayerId));
+    dispatch(deletePrayer(prayerId));
   };
 
   const closeRow = (rowMap: RowMap<IPrayer>, prayerId: number) => {

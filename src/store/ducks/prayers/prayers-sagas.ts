@@ -3,7 +3,6 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import {api} from 'src/api';
 import {
   getPrayers,
-  setNewPrayer,
   setPrayers,
   setPrayersError,
   setPrayersIsLoading,
@@ -48,4 +47,25 @@ function* addNewPrayerWorker(action: PayloadAction<IAddNewPrayer>) {
 
 export function* addNewPrayerWatcher() {
   yield takeLatest('addNewPrayer', addNewPrayerWorker);
+}
+
+const deletePrayerRequest = async (data: number) => {
+  console.log(data);
+  const response = await api.delete(`prayers/${data}`);
+  return response.data;
+};
+
+function* deletePrayerWorker(action: PayloadAction<number>) {
+  try {
+    setPrayersIsLoading(true);
+    yield call(deletePrayerRequest, action.payload);
+    yield put(getPrayers());
+  } catch (error: any) {
+    setPrayersError(error.message);
+    console.log(error.message);
+  }
+}
+
+export function* deletePrayerWatcher() {
+  yield takeLatest('deletePrayer', deletePrayerWorker);
 }
