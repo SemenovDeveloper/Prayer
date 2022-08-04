@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'SF UI Text',
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight: '400',
     lineHeight: 20,
     letterSpacing: -0.024,
     marginRight: 5,
