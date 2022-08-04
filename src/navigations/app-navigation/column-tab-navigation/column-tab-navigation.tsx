@@ -8,7 +8,6 @@ import {
   TabView,
 } from 'react-native-tab-view';
 import {useWindowDimensions, Text, View, StyleSheet} from 'react-native';
-import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 import {MyPrayers, Subscribed} from 'src/screens';
 
@@ -25,7 +24,6 @@ interface ITabRoute {
 
 export const ColumnTabNavigation = () => {
   const navigation = useNavigation();
-  const dispatch = useAppDispatch();
   const [index, setIndex] = useState(0);
   const route = useRoute<RouteProp<{params: IColumnScreen}, 'params'>>();
   const layout = useWindowDimensions();
@@ -38,13 +36,12 @@ export const ColumnTabNavigation = () => {
     navigation.setOptions({
       title: route.params.columnTitle,
     });
-		// dispatch(getPrayers());
-  }, []);
+  },[]);
 
   const getTabBarIcon = (props: ITabRoute) => {
-    const {route} = props;
+    const tabRoute = props.route;
 
-    if (route.key === 'Subscribed') {
+    if (tabRoute.key === 'Subscribed') {
       return (
         <View style={styles.icon}>
           <Text style={styles.iconText}>3</Text>

@@ -1,23 +1,28 @@
 import {createReducer, PayloadAction} from '@reduxjs/toolkit';
-import { IPrayer } from 'src/types';
-import { setNewPrayer, setPrayers, setPrayersError, setPrayersIsLoading } from './prayers-actions';
+import {IPrayer} from 'src/types';
+import {
+  setNewPrayer,
+  setPrayers,
+  setPrayersError,
+  setPrayersIsLoading,
+} from './prayers-actions';
 
 interface IPrayersState {
-  isLoading: boolean
-  error: string
-  prayers: IPrayer[]
+  isLoading: boolean;
+  error: string;
+  prayers: IPrayer[];
 }
 
 const initialState: IPrayersState = {
   isLoading: false,
   error: '',
-  prayers: []
+  prayers: [],
 };
 
 export const columnReducer = createReducer<IPrayersState>(initialState, {
   [setPrayersIsLoading.type]: (state, action: PayloadAction<boolean>) => {
     state.isLoading = action.payload;
-    state.error = ''
+    state.error = '';
   },
   [setPrayers.type]: (state, action: PayloadAction<IPrayer[]>) => {
     state.prayers = action.payload;
@@ -29,7 +34,7 @@ export const columnReducer = createReducer<IPrayersState>(initialState, {
     state.error = action.payload;
   },
   [setNewPrayer.type]: (state, action: PayloadAction<IPrayer>) => {
-    state.prayers.push(action.payload)
+    state.prayers.push(action.payload);
     state.isLoading = false;
     state.error = '';
   },

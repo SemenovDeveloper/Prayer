@@ -8,7 +8,7 @@ import {
   setColumnsIsLoading,
   setNewColumn,
 } from './column-actions';
-import { IAddColumn } from './types';
+import {IAddColumn} from './types';
 
 const fetchColumns = async () => {
   const response = await api.get('columns');
@@ -29,19 +29,18 @@ export function* getColumnsWatcher() {
   yield takeLatest('getColumns', getColumnsWorker);
 }
 
-
 const postNewColumn = async (data: IAddColumn) => {
   const response = await api.post('columns', data);
-  return response.data
+  return response.data;
 };
 
-export function* addColumnWorker(action: PayloadAction<IAddColumn>,) {
+export function* addColumnWorker(action: PayloadAction<IAddColumn>) {
   try {
-    setColumnsIsLoading(true)
-    const response: IColumn = yield call(postNewColumn, action.payload)
-    yield put(setNewColumn(response))
+    setColumnsIsLoading(true);
+    const response: IColumn = yield call(postNewColumn, action.payload);
+    yield put(setNewColumn(response));
   } catch (error: any) {
-    setColumnsError(error.message)
+    setColumnsError(error.message);
     console.log(error.message);
   }
 }

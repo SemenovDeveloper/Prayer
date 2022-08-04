@@ -1,6 +1,6 @@
 export interface IAddNewPrayer {
-  colomnId: number
-  title: string
-  description: string
-  checked: boolean
+  columnId: number;
+  title: string;
+  description: string;
+  checked: boolean;
 }

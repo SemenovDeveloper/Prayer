@@ -1,9 +1,15 @@
 import {takeLatest, put, call} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
-import { api } from 'src/api';
-import { setNewPrayer, setPrayers, setPrayersError, setPrayersIsLoading } from './prayers-actions';
-import { IPrayer } from 'src/types';
-import { IAddNewPrayer } from './types';
+import {api} from 'src/api';
+import {
+  getPrayers,
+  setNewPrayer,
+  setPrayers,
+  setPrayersError,
+  setPrayersIsLoading,
+} from './prayers-actions';
+import {IPrayer} from 'src/types';
+import {IAddNewPrayer} from './types';
 
 const fetchPrayers = async () => {
   const response = await api.get('prayers');
@@ -26,20 +32,20 @@ export function* getPrayersWatcher() {
 
 const postNewPrayer = async (data: IAddNewPrayer) => {
   const response = await api.post('/prayers', data);
-  return response.data
+  return response.data;
 };
 
 function* addNewPrayerWorker(action: PayloadAction<IAddNewPrayer>) {
   try {
-    setPrayersIsLoading(true)
-    const response: IPrayer = yield call(postNewPrayer, action.payload)
-    yield put(setNewPrayer(response))
+    setPrayersIsLoading(true);
+    yield call(postNewPrayer, action.payload);
+    yield put(getPrayers());
   } catch (error: any) {
-    setPrayersError(error.message)
+    setPrayersError(error.message);
     console.log(error.message);
   }
 }
 
-export function* addNewPrayerWatcher () {
+export function* addNewPrayerWatcher() {
   yield takeLatest('addNewPrayer', addNewPrayerWorker);
 }

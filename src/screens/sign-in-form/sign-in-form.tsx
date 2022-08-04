@@ -1,4 +1,4 @@
-import {StyleSheet, Text} from 'react-native';
+import {Text} from 'react-native';
 import React from 'react';
 import {useForm, SubmitHandler, Controller} from 'react-hook-form';
 import {EMAIL_REGEX} from 'src/lib';
@@ -10,7 +10,7 @@ export const SignInForm = () => {
   const {control, handleSubmit} = useForm<ISignIn>();
   const {isLoading, error} = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
-  
+
   const onSubmit: SubmitHandler<ISignIn> = async data => {
     dispatch(signIn(data));
   };
@@ -67,4 +67,3 @@ export const SignInForm = () => {
   );
 };
 
-const styles = StyleSheet.create({});

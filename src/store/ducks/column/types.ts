@@ -1,9 +1,9 @@
-import { IColumn } from "src/types"
+import {IColumn} from 'src/types';
 
 export interface IColumnState {
-  isLoading: boolean
-  error: string
-  columns: IColumn[]
+  isLoading: boolean;
+  error: string;
+  columns: IColumn[];
 }
 
 export interface IAddColumn {

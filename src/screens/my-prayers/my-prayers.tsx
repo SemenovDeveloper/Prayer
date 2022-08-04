@@ -1,11 +1,18 @@
-import * as React from 'react';
-import {useState, useMemo} from 'react';
-import {View, FlatList, TextInput} from 'react-native';
+import React, {useMemo, useState} from 'react';
+import {
+  StyleSheet,
+  TouchableHighlight,
+  ListRenderItemInfo,
+  View,
+  TextInput,
+} from 'react-native';
+import {RowMap, SwipeListView} from 'react-native-swipe-list-view';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
-import {StyleSheet} from 'react-native';
-import {Container} from 'src/components';
+import {IPrayer} from 'src/types';
+import {addNewPrayer} from 'src/store/ducks/prayers';
+import {Button, Container, PrayerItem} from 'src/components';
 import PlusIcon from 'src/assets/icons/plus-icon';
-import {addNewPrayer} from 'src/store/ducks/prayers/prayers-actions';
+import {getColumns} from 'src/store/ducks';
 
 interface IMyPrayers {
   columnId: number;
@@ -13,87 +20,120 @@ interface IMyPrayers {
 
 export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
   const dispatch = useAppDispatch();
+  const prayers = useAppSelector(state => state.prayers.prayers);
   const [newPrayerName, setNewPrayerName] = useState('');
-  const [isShowAnswered, setIsShowAnswered] = useState(false);
+  const [isAnsweredVisible, setIsAnsweredVisible] = useState(false);
+
+  const checkedPrayers = useMemo(
+    () =>
+      prayers.filter(
+        item => item.checked === true && item.columnId === columnId,
+      ),
+    [prayers, columnId],
+  );
+
+  const uncheckedPrayers = useMemo(
+    () =>
+      prayers.filter(
+        item => item.checked !== true && item.columnId === columnId,
+      ),
+    [prayers, columnId],
+  );
+
+  const deleteRow = (rowMap: RowMap<IPrayer>, prayerId: number) => {
+    closeRow(rowMap, prayerId);
+    console.log('delete row', prayerId);
+    // dispatch(deletePrayer(prayerId));
+  };
+
+  const closeRow = (rowMap: RowMap<IPrayer>, prayerId: number) => {
+    if (rowMap[`${prayerId}`]) {
+      rowMap[`${prayerId}`].closeRow();
+    }
+  };
 
   const handleSubmit = () => {
     if (newPrayerName) {
       dispatch(
         addNewPrayer({
           title: newPrayerName,
-          colomnId: columnId,
+          columnId: columnId,
           description: '',
           checked: true,
         }),
       );
+      dispatch(getColumns());
       setNewPrayerName('');
     }
   };
 
-  const prayers = useAppSelector(state => state.prayers.prayers);
-
-  const checkedPrayers = useMemo(
-    () => prayers.filter(item => item.checked === true),
-    [prayers],
-  );
-
-  const uncheckedPrayers = useMemo(
-    () => prayers.filter(item => item.checked !== true),
-    [prayers],
-  );
+  const renderHiddenItem = (
+    data: ListRenderItemInfo<IPrayer>,
+    rowMap: RowMap<IPrayer>,
+  ) => {
+    return (
+      <TouchableHighlight style={styles.rowBack}>
+        <Button
+          onPress={() => deleteRow(rowMap, data.item.id)}
+          title={'Delete'}
+          deleteType={true}
+        />
+      </TouchableHighlight>
+    );
+  };
 
   return (
     <Container>
-      <View style={styles.inputBlock}>
-        <PlusIcon />
-        <TextInput
-          maxLength={70}
-          placeholder="Add a prayer..."
-          style={styles.input}
-          onChangeText={value => setNewPrayerName(value)}
-          onSubmitEditing={handleSubmit}
-          onBlur={handleSubmit}
-          value={newPrayerName}
+      <View style={styles.prayersBlock}>
+        <View style={styles.inputBlock}>
+          <PlusIcon />
+          <TextInput
+            maxLength={70}
+            placeholder="Add a prayer..."
+            style={styles.input}
+            onChangeText={value => setNewPrayerName(value)}
+            onSubmitEditing={handleSubmit}
+            onBlur={handleSubmit}
+            value={newPrayerName}
+          />
+        </View>
+        <SwipeListView
+          data={checkedPrayers}
+          extraData={checkedPrayers}
+          leftOpenValue={200}
+          removeClippedSubviews={false}
+          useNativeDriver={false}
+          renderItem={data => (
+            <PrayerItem key={data.item.id} item={data.item} />
+          )}
+          renderHiddenItem={renderHiddenItem}
         />
+        <Button
+          onPress={() => setIsAnsweredVisible(!isAnsweredVisible)}
+          title={
+            isAnsweredVisible
+              ? 'Hide Answered Prayers'
+              : 'Show Answered Prayers'
+          }
+        />
+        {isAnsweredVisible && (
+          <SwipeListView
+            data={uncheckedPrayers}
+            extraData={uncheckedPrayers}
+            rightOpenValue={300}
+            leftOpenValue={300}
+            // removeClippedSubviews={false}
+            // useNativeDriver={false}
+            renderItem={data => (
+              <PrayerItem key={data.item.id} item={data.item} />
+            )}
+            renderHiddenItem={renderHiddenItem}
+          />
+        )}
       </View>
-      {/* <AddPrayerInput
-          // maxLength={70}
-          // underlineColorAndroid="transparent"
-          // placeholder="Add a prayer..."
-          // newPrayerName={newPrayerName}
-          // // onBlur={() => dispatch(stopAddColumn())}
-          // onChangeText={(value) => setNewPrayerName(value)}
-          // onSubmitEditing={handleSubmit}
-        /> */}
-      {/* <FlatList
-          style={styles.cardList}
-          contentContainerStyle={styles.cardListContainer}
-          data={uncheckedCards}
-          renderItem={({item}) => <CardPreview {...props} item={item} />}
-          keyExtractor={item => 'key' + item.id}
-        /> */}
-      {/* {checkedCards.length > 0 && (
-          <BrownButton
-            text={
-              isShowAnswered ? 'Hide Answered Prayers' : 'Show Answered Prayers'
-            }
-            onPress={() => setIsShowAnswered(!isShowAnswered)}
-          />
-        )} */}
-      {/* {isShowAnswered && (
-          <FlatList
-            style={styles.cardList}
-            contentContainerStyle={styles.cardListContainer}
-            data={checkedCards}
-            renderItem={({item}) => <CardPreview {...props} item={item} />}
-            keyExtractor={item => 'key' + item.id}
-          />
-        )} */}
     </Container>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   inputBlock: {
@@ -113,22 +153,16 @@ const styles = StyleSheet.create({
   input: {
     marginLeft: 14,
   },
-  cardPreview: {
-    width: '90%',
-    height: 66,
-    flexDirection: 'row',
-    borderBottomColor: '#E5E5E5',
-    borderBottomWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  cardList: {
+  rowBack: {
     width: '100%',
-    flexGrow: 0,
-    flexShrink: 0,
+    display: 'flex',
+    flexDirection: 'row-reverse',
   },
-  cardListContainer: {
+  prayersBlock: {
     width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
 });
