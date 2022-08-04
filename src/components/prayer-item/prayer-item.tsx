@@ -12,7 +12,7 @@ interface IPrayerItem {
 
 export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
   const dispatch = useAppDispatch();
-
+  
   const renderRightActions = () => (
     <Button onPress={() => {}} title="Delete" deleteType={true} />
   );

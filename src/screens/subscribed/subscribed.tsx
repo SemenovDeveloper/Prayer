@@ -4,15 +4,11 @@ import {
   TouchableHighlight,
   ListRenderItemInfo,
   View,
-  TextInput,
 } from 'react-native';
 import {RowMap, SwipeListView} from 'react-native-swipe-list-view';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {IPrayer} from 'src/types';
-import {addNewPrayer} from 'src/store/ducks/prayers';
 import {Button, Container, PrayerItem} from 'src/components';
-import PlusIcon from 'src/assets/icons/plus-icon';
-import {getColumns} from 'src/store/ducks';
 
 interface ISubscribed {
   columnId: number;
@@ -21,7 +17,6 @@ interface ISubscribed {
 export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
   const dispatch = useAppDispatch();
   const prayers = useAppSelector(state => state.prayers.prayers);
-  const [newPrayerName, setNewPrayerName] = useState('');
   const [isAnsweredVisible, setIsAnsweredVisible] = useState(false);
 
   const checkedPrayers = useMemo(
@@ -52,21 +47,6 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
     }
   };
 
-  const handleSubmit = () => {
-    if (newPrayerName) {
-      dispatch(
-        addNewPrayer({
-          title: newPrayerName,
-          columnId: columnId,
-          description: '',
-          checked: true,
-        }),
-      );
-      dispatch(getColumns());
-      setNewPrayerName('');
-    }
-  };
-
   const renderHiddenItem = (
     data: ListRenderItemInfo<IPrayer>,
     rowMap: RowMap<IPrayer>,
@@ -88,7 +68,8 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
         <SwipeListView
           data={checkedPrayers}
           extraData={checkedPrayers}
-          leftOpenValue={200}
+          style={styles.swipeList}
+          rightOpenValue={-80}
           removeClippedSubviews={false}
           useNativeDriver={false}
           renderItem={data => (
@@ -108,10 +89,10 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
           <SwipeListView
             data={uncheckedPrayers}
             extraData={uncheckedPrayers}
-            // rightOpenValue={300}
-            // leftOpenValue={300}
-            // removeClippedSubviews={false}
-            // useNativeDriver={false}
+            style={styles.swipeList}
+            rightOpenValue={-80}
+            removeClippedSubviews={false}
+            useNativeDriver={false}
             renderItem={data => (
               <PrayerItem key={data.item.id} item={data.item} />
             )}
@@ -127,6 +108,7 @@ const styles = StyleSheet.create({
   inputBlock: {
     width: '100%',
     height: 50,
+    marginBottom: 17,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -152,5 +134,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  swipeList: {
+    marginTop: 17,
   },
 });

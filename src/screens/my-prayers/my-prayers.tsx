@@ -98,11 +98,10 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
           />
         </View>
         <SwipeListView
+          style={styles.swipeList}
           data={checkedPrayers}
           extraData={checkedPrayers}
-          leftOpenValue={200}
-          removeClippedSubviews={false}
-          useNativeDriver={false}
+          rightOpenValue={-150}
           renderItem={data => (
             <PrayerItem key={data.item.id} item={data.item} />
           )}
@@ -118,12 +117,10 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
         />
         {isAnsweredVisible && (
           <SwipeListView
+            style={styles.swipeList}
             data={uncheckedPrayers}
             extraData={uncheckedPrayers}
-            rightOpenValue={300}
-            leftOpenValue={300}
-            // removeClippedSubviews={false}
-            // useNativeDriver={false}
+            rightOpenValue={-80}
             renderItem={data => (
               <PrayerItem key={data.item.id} item={data.item} />
             )}
@@ -164,5 +161,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  swipeList: {
+    marginTop: 17,
   },
 });

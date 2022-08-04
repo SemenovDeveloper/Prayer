@@ -81,6 +81,7 @@ export const ColumnTabNavigation = () => {
         renderTabBar={renderTabBar}
         onIndexChange={setIndex}
         initialLayout={{width: layout.width}}
+        swipeEnabled={false}
       />
     </>
   );

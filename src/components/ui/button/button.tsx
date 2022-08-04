@@ -36,9 +36,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   deleteBtnStyle: {
-    width: '30%',
+    width: 80,
     height: '100%',
-
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#AC5253',
