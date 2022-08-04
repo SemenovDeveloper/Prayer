@@ -3,7 +3,6 @@ import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import {IPrayer} from 'src/types';
 import {StateIcon} from 'src/assets/icons/state-icon';
 import {OffIcon, OnIcon, PrayerIcon, UserIcon} from 'src/assets';
-import {Button} from '../ui';
 import {useAppDispatch} from 'src/hooks';
 
 interface IPrayerItem {
@@ -12,10 +11,6 @@ interface IPrayerItem {
 
 export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
   const dispatch = useAppDispatch();
-  
-  const renderRightActions = () => (
-    <Button onPress={() => {}} title="Delete" deleteType={true} />
-  );
 
   const handleCheckboxClick = () => {
     const data = {
@@ -24,11 +19,7 @@ export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
       checked: !item.checked,
       columnId: item.columnId,
     };
-    // dispatch({
-    //   type: sagaPrayerActions.CHANGE_PRAYERS_SAGA,
-    //   data,
-    //   prayerId: item.id,
-    // });
+// dispatch(checkPrayer())
   };
 
   return (
@@ -65,6 +56,8 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     flexDirection: 'row',
     alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E5E5',
   },
   border: {
     width: 3,
