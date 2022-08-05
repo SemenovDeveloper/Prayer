@@ -100,7 +100,9 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
           style={styles.swipeList}
           data={checkedPrayers}
           extraData={checkedPrayers}
-          rightOpenValue={-150}
+          rightOpenValue={-80}
+          removeClippedSubviews={false}
+          useNativeDriver={false}
           renderItem={data => (
             <PrayerItem key={data.item.id} item={data.item} />
           )}
@@ -120,6 +122,8 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
             data={uncheckedPrayers}
             extraData={uncheckedPrayers}
             rightOpenValue={-80}
+            removeClippedSubviews={false}
+            useNativeDriver={false}
             renderItem={data => (
               <PrayerItem key={data.item.id} item={data.item} />
             )}
