@@ -2,7 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Card, ColumnsList, AddColumnForm} from 'src/screens';
 import {NavigationContainer} from '@react-navigation/native';
-import {AddColumnButton} from 'src/components';
+import {AddColumnButton} from 'src/components/ui/add-column-button';
 import {route} from './routes';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StyleSheet} from 'react-native';
@@ -29,11 +29,15 @@ export const AppNavigation = () => {
         <Stack.Screen
           name={route.COLUMNS_LIST}
           component={ColumnsList}
-          options={{
-            headerRight: () => <AddColumnButton />,
+          options={({navigation}) => ({
+            headerRight: () => (
+              <AddColumnButton
+                onPress={() => navigation.navigate(route.ADD_COLUMN_ROUTE)}
+              />
+            ),
             title: 'My Desk',
             headerTitleStyle: styles.header,
-          }}
+          })}
         />
         <Stack.Screen
           name={route.ADD_COLUMN_ROUTE}
