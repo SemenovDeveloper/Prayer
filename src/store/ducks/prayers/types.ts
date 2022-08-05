@@ -5,6 +5,10 @@ export interface IAddNewPrayer {
   checked: boolean;
 }
 
-export interface ICheckPrayer extends IAddNewPrayer {
+export interface ICheckPrayer {
+  columnId: number;
+  title: string;
+  description: string;
+  checked: boolean;
   prayerId: number;
 }

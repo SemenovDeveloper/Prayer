@@ -4,11 +4,17 @@ import PlusIcon from 'src/assets/icons/plus-icon';
 import {ProfileScreenNavigationProp, route} from '../../navigations';
 import {useNavigation} from '@react-navigation/native';
 
-export const AddColumnButton = () => {
+interface IAddColumnButton {
+  onPress: () => void;
+}
+
+export const AddColumnButton: React.FC<IAddColumnButton> = ({onPress}) => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
   return (
     <TouchableHighlight
-      onPress={() => navigation.navigate(route.ADD_COLUMN_ROUTE)}>
+      onPress={onPress}
+      // onPress={() => navigation.navigate(route.ADD_COLUMN_ROUTE)}
+    >
       <PlusIcon />
     </TouchableHighlight>
   );

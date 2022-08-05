@@ -55,8 +55,7 @@ export const AppNavigation = () => {
           name={route.CARD_ROUTE}
           component={Card}
           options={{
-            title: 'Card',
-            headerTitleStyle: styles.header,
+            headerTitleStyle: styles.cardHeader,
           }}
         />
       </Stack.Navigator>
@@ -70,5 +69,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#514D47',
     fontFamily: 'SFUIText-Regular',
+  },
+  cardHeader: {
+    backgroundColor: '#514D47',
+    color: '#ffffff',
   },
 });
