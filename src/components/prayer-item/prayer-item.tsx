@@ -5,12 +5,15 @@ import {StateIcon} from 'src/assets/icons/state-icon';
 import {OffIcon, OnIcon, PrayerIcon, UserIcon} from 'src/assets';
 import {useAppDispatch} from 'src/hooks';
 import {checkPrayer} from 'src/store/ducks/prayers';
+import {useNavigation} from '@react-navigation/native';
+import {ProfileScreenNavigationProp} from 'src/navigations';
 
 interface IPrayerItem {
   item: IPrayer;
 }
 
 export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
+  const navigation = useNavigation<ProfileScreenNavigationProp>();
   const dispatch = useAppDispatch();
 
   const handleCheckboxClick = () => {
@@ -34,7 +37,15 @@ export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
           {item.checked ? <OffIcon /> : <OnIcon />}
         </View>
       </TouchableHighlight>
-      <Text style={styles.prayerTitle}>{item.title}</Text>
+      <TouchableHighlight
+        onPress={() =>
+          navigation.navigate('Card', {
+            prayerId: item.id,
+          })
+        }>
+        <Text style={styles.prayerTitle}>{item.title}</Text>
+      </TouchableHighlight>
+
       <View style={styles.iconContainer}>
         <UserIcon />
         <Text style={styles.count}>3</Text>

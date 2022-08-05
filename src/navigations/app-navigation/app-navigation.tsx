@@ -1,18 +1,18 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Card, Column, ColumnsList, AddColumnForm} from 'src/screens';
+import {Card, ColumnsList, AddColumnForm} from 'src/screens';
 import {NavigationContainer} from '@react-navigation/native';
 import {AddColumnButton} from 'src/components';
 import {route} from './routes';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StyleSheet} from 'react-native';
-import { ColumnTabNavigation } from './column-tab-navigation';
+import {ColumnTabNavigation} from './column-tab-navigation';
 
 export type RootStackParamList = {
   ColumnsList: undefined;
   AddColumnForm: undefined;
-  Column: {columnId: number, columnTitle: string};
-  Card: undefined;
+  Column: {columnId: number; columnTitle: string};
+  Card: {prayerId: number};
 };
 
 export type ProfileScreenNavigationProp =
