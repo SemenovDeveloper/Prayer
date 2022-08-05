@@ -4,3 +4,7 @@ export interface IAddNewPrayer {
   description: string;
   checked: boolean;
 }
+
+export interface ICheckPrayer extends IAddNewPrayer {
+  prayerId: number;
+}

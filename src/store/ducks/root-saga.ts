@@ -2,6 +2,7 @@ import {all} from 'redux-saga/effects';
 import {addColumnWatcher, getColumnsWatcher} from './column';
 import {
   addNewPrayerWatcher,
+  checkPrayerWatcher,
   deletePrayerWatcher,
   getPrayersWatcher,
 } from './prayers/prayers-sagas';
@@ -15,5 +16,6 @@ export function* rootSaga() {
     addColumnWatcher(),
     addNewPrayerWatcher(),
     deletePrayerWatcher(),
+    checkPrayerWatcher(),
   ]);
 }

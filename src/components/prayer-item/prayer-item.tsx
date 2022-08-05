@@ -4,6 +4,7 @@ import {IPrayer} from 'src/types';
 import {StateIcon} from 'src/assets/icons/state-icon';
 import {OffIcon, OnIcon, PrayerIcon, UserIcon} from 'src/assets';
 import {useAppDispatch} from 'src/hooks';
+import {checkPrayer} from 'src/store/ducks/prayers';
 
 interface IPrayerItem {
   item: IPrayer;
@@ -18,8 +19,9 @@ export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
       description: item.description,
       checked: !item.checked,
       columnId: item.columnId,
+      prayerId: item.id,
     };
-// dispatch(checkPrayer())
+    dispatch(checkPrayer(data));
   };
 
   return (
@@ -29,7 +31,7 @@ export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
       </View>
       <TouchableHighlight onPress={handleCheckboxClick}>
         <View style={styles.checkboxIcon}>
-          {item.checked ? <OnIcon /> : <OffIcon />}
+          {item.checked ? <OffIcon /> : <OnIcon />}
         </View>
       </TouchableHighlight>
       <Text style={styles.prayerTitle}>{item.title}</Text>
