@@ -4,3 +4,5 @@ export * from './plus-icon';
 export * from './user-icon';
 export * from './add-icon';
 export * from './prayer-icon';
+export * from './hands-icon';
+export * from './back-icon';

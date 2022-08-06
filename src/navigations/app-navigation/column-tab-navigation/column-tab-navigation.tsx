@@ -27,16 +27,16 @@ export const ColumnTabNavigation = () => {
   const [index, setIndex] = useState(0);
   const route = useRoute<RouteProp<{params: IColumnScreen}, 'params'>>();
   const layout = useWindowDimensions();
-  const [routes] = useState([
+  const routes = [
     {key: 'Prayers', title: 'MY PRAYERS'},
     {key: 'Subscribed', title: 'SUBSCRIBED'},
-  ]);
+  ];
 
   useEffect(() => {
     navigation.setOptions({
       title: route.params.columnTitle,
     });
-  },[]);
+  }, []);
 
   const getTabBarIcon = (props: ITabRoute) => {
     const tabRoute = props.route;

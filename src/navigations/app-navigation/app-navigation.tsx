@@ -5,8 +5,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {AddColumnButton} from 'src/components/ui/add-column-button';
 import {route} from './routes';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableHighlight} from 'react-native';
 import {ColumnTabNavigation} from './column-tab-navigation';
+import colors from 'src/styles/colors';
+import {BackIcon, HandsIcon} from 'src/assets';
+import { Navigation } from '../navigation';
 
 export type RootStackParamList = {
   ColumnsList: undefined;
@@ -58,9 +61,15 @@ export const AppNavigation = () => {
         <Stack.Screen
           name={route.CARD_ROUTE}
           component={Card}
-          options={{
-            headerTitleStyle: styles.cardHeader,
-          }}
+          options={({navigation}) => ({
+            headerStyle: styles.cardHeader,
+            headerRight: () => <HandsIcon stroke={colors.white} />,
+            headerLeft: () => (
+              <TouchableHighlight onPress={() => navigation.goBack()}>
+                <BackIcon />
+              </TouchableHighlight>
+            ),
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -75,7 +84,7 @@ const styles = StyleSheet.create({
     fontFamily: 'SFUIText-Regular',
   },
   cardHeader: {
-    backgroundColor: '#514D47',
+    backgroundColor: colors.beige,
     color: '#ffffff',
   },
 });
