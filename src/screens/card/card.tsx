@@ -1,18 +1,53 @@
-import * as React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
+import React from 'react';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {useRoute, RouteProp} from '@react-navigation/native';
 import colors from 'src/styles/colors';
+import PlusIcon from 'src/assets/icons/plus-icon';
+import {Controller, useForm, SubmitHandler} from 'react-hook-form';
+import {CustomInput} from 'src/components';
+import {CommentIcon} from 'src/assets';
+import {useAppDispatch, useAppSelector} from 'src/hooks';
+import {addNewComment} from 'src/store/ducks/comment';
+import { Comments } from './components/comments/comments';
 
 interface ICard {
   prayerId: number;
   prayerTitle: string;
 }
 
+interface IAddComment {
+  text: string;
+}
+
 export const Card = () => {
-  const navigation = useNavigation();
   const route = useRoute<RouteProp<{params: ICard}, 'params'>>();
+  const dispatch = useAppDispatch();
+  const comments = useAppSelector(state =>
+    state.comment.comments.filter(
+      comment => comment.prayerId === route.params.prayerId,
+    ),
+  );
+
+  const {handleSubmit, control, reset} = useForm({
+    defaultValues: {
+      text: '',
+    },
+  });
+
+  const onSubmit: SubmitHandler<IAddComment> = (data: IAddComment) => {
+    dispatch(addNewComment({text: data.text, prayerId: route.params.prayerId}));
+    reset({text: ''});
+  };
+
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{route.params.prayerTitle}</Text>
       </View>
@@ -39,11 +74,49 @@ export const Card = () => {
           <Text style={styles.text}>Times Prayed by Others</Text>
         </View>
       </View>
+      <Comments comments={comments} />
+      <View style={styles.membersContainer}>
+        <Text style={styles.membersTitle}>MEMBERS</Text>
+        <View style={styles.membersBlock}>
+          <Image
+            source={require('src/assets/img/photo1.png')}
+            style={styles.image}
+          />
+          <Image
+            source={require('src/assets/img/photo2.png')}
+            style={styles.image}
+          />
+          <View style={styles.plusButton}>
+            <PlusIcon color={colors.white} />
+          </View>
+        </View>
+      </View>
+      <View style={styles.inputBlock}>
+        <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+          <CommentIcon />
+        </TouchableOpacity>
+        <Controller
+          control={control}
+          render={({field: {onChange, value}}) => (
+            <CustomInput
+              placeholder={'Add a comment...'}
+              onBlur={handleSubmit(onSubmit)}
+              onChangeText={value => onChange(value)}
+              value={value}
+            />
+          )}
+          name="text"
+          rules={{required: true}}
+        />
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ffffff',
+  },
   titleContainer: {
     backgroundColor: colors.beige,
     paddingHorizontal: 15,
@@ -111,5 +184,48 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 15,
     color: colors.blue,
+  },
+
+  membersContainer: {
+    paddingTop: 20,
+    width: '100%',
+    padding: 15,
+  },
+  membersTitle: {
+    fontFamily: 'SFUIText-Regular',
+    color: colors.blue,
+    fontSize: 13,
+    lineHeight: 15,
+    marginBottom: 15,
+  },
+  membersBlock: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  image: {
+    borderRadius: 50,
+    marginRight: 5,
+  },
+  plusButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.beige,
+  },
+  inputBlock: {
+    width: '100%',
+    height: 50,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 14,
+    borderColor: '#E5E5E5',
+    borderWidth: 1,
+    fontFamily: 'SFUIText-Regular',
+    fontSize: 17,
+    color: '#9C9C9C',
   },
 });

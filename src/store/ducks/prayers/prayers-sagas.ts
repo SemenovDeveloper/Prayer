@@ -51,7 +51,6 @@ export function* addNewPrayerWatcher() {
 }
 
 const deletePrayerRequest = async (data: number) => {
-  console.log(data);
   const response = await api.delete(`prayers/${data}`);
   return response.data;
 };

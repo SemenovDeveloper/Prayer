@@ -6,3 +6,4 @@ export * from './add-icon';
 export * from './prayer-icon';
 export * from './hands-icon';
 export * from './back-icon';
+export * from './comment-icon';

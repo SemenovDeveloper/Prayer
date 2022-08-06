@@ -9,6 +9,7 @@ import {RowMap, SwipeListView} from 'react-native-swipe-list-view';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {IPrayer} from 'src/types';
 import {Button, Container, PrayerItem} from 'src/components';
+import {deletePrayer} from 'src/store/ducks/prayers';
 
 interface ISubscribed {
   columnId: number;
@@ -37,8 +38,7 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
 
   const deleteRow = (rowMap: RowMap<IPrayer>, prayerId: number) => {
     closeRow(rowMap, prayerId);
-    console.log('delete row', prayerId);
-    // dispatch(deletePrayer(prayerId));
+    dispatch(deletePrayer(prayerId));
   };
 
   const closeRow = (rowMap: RowMap<IPrayer>, prayerId: number) => {
