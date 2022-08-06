@@ -9,13 +9,12 @@ import {StyleSheet, TouchableHighlight} from 'react-native';
 import {ColumnTabNavigation} from './column-tab-navigation';
 import colors from 'src/styles/colors';
 import {BackIcon, HandsIcon} from 'src/assets';
-import { Navigation } from '../navigation';
 
 export type RootStackParamList = {
   ColumnsList: undefined;
   AddColumnForm: undefined;
   Column: {columnId: number; columnTitle: string};
-  Card: {prayerId: number};
+  Card: {prayerId: number; prayerTitle: string};
 };
 
 export type ProfileScreenNavigationProp =
@@ -69,6 +68,8 @@ export const AppNavigation = () => {
                 <BackIcon />
               </TouchableHighlight>
             ),
+            title: '',
+            headerShadowVisible: false,
           })}
         />
       </Stack.Navigator>

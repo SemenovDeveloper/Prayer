@@ -41,6 +41,7 @@ export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
         onPress={() =>
           navigation.navigate('Card', {
             prayerId: item.id,
+            prayerTitle: item.title,
           })
         }>
         <Text style={styles.prayerTitle}>{item.title}</Text>

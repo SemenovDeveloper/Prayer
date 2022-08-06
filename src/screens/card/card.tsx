@@ -1,19 +1,115 @@
 import * as React from 'react';
-import {useEffect} from 'react';
-import {Text} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
+import colors from 'src/styles/colors';
 
 interface ICard {
   prayerId: number;
+  prayerTitle: string;
 }
 
 export const Card = () => {
   const navigation = useNavigation();
   const route = useRoute<RouteProp<{params: ICard}, 'params'>>();
-
   return (
-    <>
-      <Text>{route.params.prayerId}</Text>
-    </>
+    <ScrollView>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{route.params.prayerTitle}</Text>
+      </View>
+      <View style={styles.lastPrayed}>
+        <View style={styles.lastPrayedIndicator} />
+        <Text style={styles.lastPrayedText}>Last prayed 8 min ago</Text>
+      </View>
+      <View style={styles.prayerInfo}>
+        <View style={styles.block}>
+          <Text style={styles.date}>July 25 2017</Text>
+          <Text style={styles.text}>Date Added</Text>
+          <Text style={styles.openedText}>Opened for 4 days</Text>
+        </View>
+        <View style={styles.block}>
+          <Text style={styles.number}>123</Text>
+          <Text style={styles.text}>Times Prayed Total</Text>
+        </View>
+        <View style={styles.block}>
+          <Text style={styles.number}>60</Text>
+          <Text style={styles.text}>Times Prayed by Me</Text>
+        </View>
+        <View style={styles.block}>
+          <Text style={styles.number}>63</Text>
+          <Text style={styles.text}>Times Prayed by Others</Text>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  titleContainer: {
+    backgroundColor: colors.beige,
+    paddingHorizontal: 15,
+    paddingBottom: 23,
+  },
+  title: {
+    fontFamily: 'SFUIText-Regular',
+    color: colors.white,
+    fontSize: 17,
+    lineHeight: 27,
+  },
+  lastPrayed: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
+    paddingHorizontal: 15,
+    height: 50,
+  },
+  lastPrayedIndicator: {
+    height: 22,
+    width: 3,
+    backgroundColor: colors.red,
+  },
+  lastPrayedText: {
+    fontFamily: 'SFUIText-Regular',
+    fontSize: 17,
+    lineHeight: 20,
+    marginLeft: 10,
+    color: colors.black,
+  },
+  prayerInfo: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: '100%',
+  },
+  block: {
+    justifyContent: 'center',
+    height: 108,
+    paddingLeft: 15,
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    width: '50%',
+  },
+  number: {
+    fontFamily: 'SFUIText-Regular',
+    fontSize: 32,
+    lineHeight: 37,
+    color: colors.beige,
+  },
+  date: {
+    fontFamily: 'SFUIText-Regular',
+    marginVertical: 10,
+    fontSize: 22,
+    lineHeight: 26,
+    color: colors.beige,
+  },
+  text: {
+    fontFamily: 'SFUIText-Regular',
+    fontSize: 13,
+    lineHeight: 15,
+    color: colors.black,
+  },
+  openedText: {
+    fontFamily: 'SFUIText-Regular',
+    fontSize: 13,
+    lineHeight: 15,
+    color: colors.blue,
+  },
+});
