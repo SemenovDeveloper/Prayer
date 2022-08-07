@@ -7,8 +7,8 @@ import {Controller, useForm, SubmitHandler} from 'react-hook-form';
 import {CustomInput} from 'src/components';
 import {CommentIcon} from 'src/assets';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
-import {addNewComment, getComments} from 'src/store/ducks/comment';
-import {Comments} from './components/comments/comments';
+import {addNewComment, getComments} from 'src/store/ducks';
+import {Comments} from './components';
 
 interface ICard {
   prayerId: number;
@@ -25,7 +25,7 @@ export const Card = () => {
   useEffect(() => {
     dispatch(getComments());
   }, []);
-  const {error} = useAppSelector(state => state.comment.error);
+  const {error} = useAppSelector(state => state.comment);
   const comments = useAppSelector(state =>
     state.comment.comments.filter(
       comment => comment.prayerId === route.params.prayerId,
