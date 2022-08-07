@@ -12,9 +12,10 @@ import {CustomInput} from 'src/components';
 
 interface IPrayerItem {
   item: IPrayer;
+  cardNavigation: (id: number, title: string) => void;
 }
 
-export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
+export const PrayerItem: React.FC<IPrayerItem> = ({item, cardNavigation}) => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const dispatch = useAppDispatch();
@@ -60,12 +61,7 @@ export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
       <TouchableHighlight
         style={styles.name}
         onLongPress={() => setIsDisabled(false)}
-        onPress={() =>
-          navigation.navigate('Card', {
-            prayerId: item.id,
-            prayerTitle: item.title,
-          })
-        }>
+        onPress={() => cardNavigation(item.id, item.title)}>
         {isDisabled ? (
           <Text>{item.title}</Text>
         ) : (

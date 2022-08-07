@@ -10,34 +10,36 @@ import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {IPrayer} from 'src/types';
 import {Button, Container, PrayerItem} from 'src/components';
 import {deletePrayer} from 'src/store/ducks/prayers';
+import {useNavigation} from '@react-navigation/native';
+import {ProfileScreenNavigationProp} from 'src/navigations';
 
 interface ISubscribed {
   columnId: number;
 }
 
 export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
+  const navigation = useNavigation<ProfileScreenNavigationProp>();
   const dispatch = useAppDispatch();
-  const prayers = useAppSelector(state => state.prayers.prayers);
   const [isAnsweredVisible, setIsAnsweredVisible] = useState(false);
-
-  const checkedPrayers = useMemo(
-    () =>
-      prayers.filter(
-        item => item.checked === true && item.columnId === columnId,
-      ),
-    [prayers, columnId],
+  const checkedPrayers = useAppSelector(state =>
+    state.prayers.prayers.filter(
+      item => item.columnId === columnId && item.checked === true,
+    ),
   );
-
-  const uncheckedPrayers = useMemo(
-    () =>
-      prayers.filter(
-        item => item.checked !== true && item.columnId === columnId,
-      ),
-    [prayers, columnId],
+  const uncheckedPrayers = useAppSelector(state =>
+    state.prayers.prayers.filter(
+      item => item.columnId === columnId && item.checked !== true,
+    ),
   );
 
   const deleteRow = (prayerId: number) => {
     dispatch(deletePrayer(prayerId));
+  };
+  const cardNavigation = (id: number, title: string) => {
+    navigation.navigate('Card', {
+      prayerId: id,
+      prayerTitle: title,
+    });
   };
 
   const renderHiddenItem = (data: ListRenderItemInfo<IPrayer>) => {
@@ -63,7 +65,11 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
           removeClippedSubviews={false}
           useNativeDriver={false}
           renderItem={data => (
-            <PrayerItem key={data.item.id} item={data.item} />
+            <PrayerItem
+              key={data.item.id}
+              item={data.item}
+              cardNavigation={cardNavigation}
+            />
           )}
           renderHiddenItem={renderHiddenItem}
         />
@@ -84,7 +90,11 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
             removeClippedSubviews={false}
             useNativeDriver={false}
             renderItem={data => (
-              <PrayerItem key={data.item.id} item={data.item} />
+              <PrayerItem
+                key={data.item.id}
+                item={data.item}
+                cardNavigation={cardNavigation}
+              />
             )}
             renderHiddenItem={renderHiddenItem}
           />

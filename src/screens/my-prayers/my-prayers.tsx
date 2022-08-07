@@ -7,13 +7,15 @@ import {
   TextInput,
   Text,
 } from 'react-native';
-import { SwipeListView} from 'react-native-swipe-list-view';
+import {SwipeListView} from 'react-native-swipe-list-view';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {IPrayer} from 'src/types';
 import {addNewPrayer, deletePrayer} from 'src/store/ducks/prayers';
 import {Button, Container, Loader, PrayerItem} from 'src/components';
 import PlusIcon from 'src/assets/icons/plus-icon';
 import {getColumns} from 'src/store/ducks';
+import {useNavigation} from '@react-navigation/native';
+import {ProfileScreenNavigationProp} from 'src/navigations';
 
 interface IMyPrayers {
   columnId: number;
@@ -21,6 +23,7 @@ interface IMyPrayers {
 
 export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<ProfileScreenNavigationProp>();
   const [newPrayerName, setNewPrayerName] = useState('');
   const [isAnsweredVisible, setIsAnsweredVisible] = useState(false);
   const {error, isLoading} = useAppSelector(state => state.prayers);
@@ -52,6 +55,13 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
       dispatch(getColumns());
       setNewPrayerName('');
     }
+  };
+
+  const cardNavigation = (id: number, title: string) => {
+    navigation.navigate('Card', {
+      prayerId: id,
+      prayerTitle: title,
+    });
   };
 
   const renderHiddenItem = (data: ListRenderItemInfo<IPrayer>) => {
@@ -92,7 +102,11 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
             removeClippedSubviews={false}
             useNativeDriver={false}
             renderItem={data => (
-              <PrayerItem key={data.item.id} item={data.item} />
+              <PrayerItem
+                key={data.item.id}
+                item={data.item}
+                cardNavigation={cardNavigation}
+              />
             )}
             renderHiddenItem={renderHiddenItem}
           />
@@ -115,7 +129,11 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
             removeClippedSubviews={false}
             useNativeDriver={false}
             renderItem={data => (
-              <PrayerItem key={data.item.id} item={data.item} />
+              <PrayerItem
+                key={data.item.id}
+                item={data.item}
+                cardNavigation={cardNavigation}
+              />
             )}
             renderHiddenItem={renderHiddenItem}
           />
