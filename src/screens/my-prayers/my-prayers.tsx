@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   TouchableHighlight,
@@ -7,7 +7,7 @@ import {
   TextInput,
   Text,
 } from 'react-native';
-import {RowMap, SwipeListView} from 'react-native-swipe-list-view';
+import { SwipeListView} from 'react-native-swipe-list-view';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {IPrayer} from 'src/types';
 import {addNewPrayer, deletePrayer} from 'src/store/ducks/prayers';
@@ -34,10 +34,6 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
       item => item.columnId === columnId && item.checked !== true,
     ),
   );
-
-  useEffect(() => {
-    dispatch(getColumns());
-  }, []);
 
   const deleteRow = (prayerId: number) => {
     dispatch(deletePrayer(prayerId));

@@ -8,7 +8,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {StyleSheet, TouchableHighlight} from 'react-native';
 import {ColumnTabNavigation} from './column-tab-navigation';
 import colors from 'src/styles/colors';
-import {BackIcon, HandsIcon} from 'src/assets';
+import {BackIcon, HandsIcon, Settings} from 'src/assets';
 
 export type RootStackParamList = {
   ColumnsList: undefined;
@@ -55,6 +55,8 @@ export const AppNavigation = () => {
           options={{
             headerTitleStyle: styles.header,
             headerShadowVisible: false,
+            headerRight: () => <Settings />,
+            headerLeft: () => null,
           }}
         />
         <Stack.Screen

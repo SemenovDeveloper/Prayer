@@ -8,3 +8,4 @@ export * from './hands-icon';
 export * from './back-icon';
 export * from './comment-icon';
 export * from './state-icon';
+export * from './settings';

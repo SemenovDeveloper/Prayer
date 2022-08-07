@@ -25,9 +25,6 @@ export const columnReducer = createReducer<IColumnState>(initialState, {
     state.error = '';
   },
   [setColumnsError.type]: (state, action: PayloadAction<string>) => {
-    console.log('====================================');
-    console.log(action.payload);
-    console.log('====================================');
     state.isLoading = false;
     state.error = action.payload;
   },

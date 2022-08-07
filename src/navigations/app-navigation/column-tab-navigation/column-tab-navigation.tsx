@@ -10,6 +10,8 @@ import {
 import {useWindowDimensions, Text, View, StyleSheet} from 'react-native';
 import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 import {MyPrayers, Subscribed} from 'src/screens';
+import {useAppDispatch} from 'src/hooks';
+import {getPrayers} from 'src/store/ducks/prayers';
 
 interface IColumnScreen {
   columnId: number;
@@ -23,6 +25,7 @@ interface ITabRoute {
 }
 
 export const ColumnTabNavigation = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [index, setIndex] = useState(0);
   const route = useRoute<RouteProp<{params: IColumnScreen}, 'params'>>();
@@ -36,6 +39,7 @@ export const ColumnTabNavigation = () => {
     navigation.setOptions({
       title: route.params.columnTitle,
     });
+    dispatch(getPrayers());
   }, []);
 
   const getTabBarIcon = (props: ITabRoute) => {
