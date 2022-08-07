@@ -11,8 +11,11 @@ import {deleteColumn, getColumns} from 'src/store/ducks';
 import {IColumn} from 'src/types';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {ColumnListItem} from './components';
+import {useNavigation} from '@react-navigation/native';
+import {ProfileScreenNavigationProp} from 'src/navigations';
 
 export const ColumnsList: React.FC = () => {
+  const navigation = useNavigation<ProfileScreenNavigationProp>();
   const {isLoading, error, columns} = useAppSelector(state => state.column);
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -30,6 +33,14 @@ export const ColumnsList: React.FC = () => {
       </TouchableHighlight>
     );
   };
+
+  const columnsNavigation = (id: number, title: string) => {
+    navigation.navigate('Column', {
+      columnId: id,
+      columnTitle: title,
+    });
+  };
+
   return (
     <Container>
       {isLoading ? (
@@ -47,6 +58,7 @@ export const ColumnsList: React.FC = () => {
               key={data.item.id}
               id={data.item.id}
               title={data.item.title}
+              columnsNavigation={columnsNavigation}
             />
           )}
           renderHiddenItem={renderHiddenItem}

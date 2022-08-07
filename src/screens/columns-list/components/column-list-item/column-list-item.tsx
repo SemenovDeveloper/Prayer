@@ -4,19 +4,21 @@ import {useAppDispatch} from 'src/hooks';
 import colors from 'src/styles/colors';
 import {Controller, useForm, SubmitHandler} from 'react-hook-form';
 import {CustomInput} from 'src/components';
-import {useNavigation} from '@react-navigation/native';
-import {ProfileScreenNavigationProp} from 'src/navigations';
 import {updateColumn} from 'src/store/ducks';
 
 interface IColumnListItem {
   title: string;
   id: number;
+  columnsNavigation: (id: number, title: string) => void;
 }
 
-export const ColumnListItem: React.FC<IColumnListItem> = ({title, id}) => {
+export const ColumnListItem: React.FC<IColumnListItem> = ({
+  title,
+  id,
+  columnsNavigation,
+}) => {
   const dispatch = useAppDispatch();
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  const navigation = useNavigation<ProfileScreenNavigationProp>();
 
   const {handleSubmit, control} = useForm({
     defaultValues: {
@@ -39,12 +41,7 @@ export const ColumnListItem: React.FC<IColumnListItem> = ({title, id}) => {
     <View style={styles.container}>
       <TouchableOpacity
         onLongPress={() => setIsDisabled(false)}
-        onPress={() =>
-          navigation.navigate('Column', {
-            columnId: id,
-            columnTitle: title,
-          })
-        }>
+        onPress={() => columnsNavigation(id, title)}>
         <View style={styles.card}>
           <Controller
             control={control}
