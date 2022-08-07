@@ -1,18 +1,12 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-  ListRenderItemInfo,
-} from 'react-native';
+import {StyleSheet, TouchableHighlight, ListRenderItemInfo} from 'react-native';
 import React from 'react';
 import {IComment} from 'src/types';
-import {Comment} from './components/comment/comment';
+import {Comment} from './components';
 import colors from 'src/styles/colors';
 import {SwipeListView} from 'react-native-swipe-list-view';
-import {Button} from 'src/components';
-import {useAppDispatch} from 'src/hooks';
-import {deleteComment} from 'src/store/ducks/comment';
+import {Button, Loader} from 'src/components';
+import {useAppDispatch, useAppSelector} from 'src/hooks';
+import {deleteComment} from 'src/store/ducks';
 
 interface IComments {
   comments: IComment[];
@@ -20,6 +14,7 @@ interface IComments {
 
 export const Comments: React.FC<IComments> = ({comments}) => {
   const dispatch = useAppDispatch();
+  const {isLoading} = useAppSelector(state => state.comment);
 
   const renderHiddenItem = (data: ListRenderItemInfo<IComment>) => {
     return (
@@ -34,16 +29,24 @@ export const Comments: React.FC<IComments> = ({comments}) => {
   };
 
   return (
-    <SwipeListView
-      data={comments}
-      extraData={comments}
-      style={styles.swipeList}
-      rightOpenValue={-80}
-      removeClippedSubviews={false}
-      useNativeDriver={false}
-      renderItem={data => <Comment key={data.item.id} comment={data.item} />}
-      renderHiddenItem={renderHiddenItem}
-    />
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <SwipeListView
+          data={comments}
+          extraData={comments}
+          style={styles.swipeList}
+          rightOpenValue={-80}
+          removeClippedSubviews={false}
+          useNativeDriver={false}
+          renderItem={data => (
+            <Comment key={data.item.id} comment={data.item} />
+          )}
+          renderHiddenItem={renderHiddenItem}
+        />
+      )}
+    </>
   );
 };
 

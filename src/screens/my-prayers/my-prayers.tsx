@@ -20,35 +20,21 @@ interface IMyPrayers {
 
 export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
   const dispatch = useAppDispatch();
-  const prayers = useAppSelector(state => state.prayers.prayers);
   const [newPrayerName, setNewPrayerName] = useState('');
   const [isAnsweredVisible, setIsAnsweredVisible] = useState(false);
-
-  const checkedPrayers = useMemo(
-    () =>
-      prayers.filter(
-        item => item.checked === true && item.columnId === columnId,
-      ),
-    [prayers, columnId],
+  const checkedPrayers = useAppSelector(state =>
+    state.prayers.prayers.filter(
+      item => item.columnId === columnId && item.checked === true,
+    ),
+  );
+  const uncheckedPrayers = useAppSelector(state =>
+    state.prayers.prayers.filter(
+      item => item.columnId !== columnId && item.checked === true,
+    ),
   );
 
-  const uncheckedPrayers = useMemo(
-    () =>
-      prayers.filter(
-        item => item.checked !== true && item.columnId === columnId,
-      ),
-    [prayers, columnId],
-  );
-
-  const deleteRow = (rowMap: RowMap<IPrayer>, prayerId: number) => {
-    closeRow(rowMap, prayerId);
+  const deleteRow = (prayerId: number) => {
     dispatch(deletePrayer(prayerId));
-  };
-
-  const closeRow = (rowMap: RowMap<IPrayer>, prayerId: number) => {
-    if (rowMap[`${prayerId}`]) {
-      rowMap[`${prayerId}`].closeRow();
-    }
   };
 
   const handleSubmit = () => {
@@ -66,14 +52,11 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
     }
   };
 
-  const renderHiddenItem = (
-    data: ListRenderItemInfo<IPrayer>,
-    rowMap: RowMap<IPrayer>,
-  ) => {
+  const renderHiddenItem = (data: ListRenderItemInfo<IPrayer>) => {
     return (
       <TouchableHighlight style={styles.rowBack}>
         <Button
-          onPress={() => deleteRow(rowMap, data.item.id)}
+          onPress={() => deleteRow(data.item.id)}
           title={'Delete'}
           deleteType={true}
         />

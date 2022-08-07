@@ -1,1 +1,1 @@
-export * './comment';
+export * from './comment';

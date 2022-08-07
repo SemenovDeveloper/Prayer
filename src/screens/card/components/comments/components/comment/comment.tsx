@@ -2,18 +2,16 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {IComment} from 'src/types';
 import {useAppDispatch} from 'src/hooks';
-import {useNavigation} from '@react-navigation/native';
-import {ProfileScreenNavigationProp} from 'src/navigations';
 import colors from 'src/styles/colors';
 import {Controller, useForm, SubmitHandler} from 'react-hook-form';
 import {CustomInput} from 'src/components';
+import {changeComment} from 'src/store/ducks';
 
 type CommentProps = {
   comment: IComment;
 };
 
 export const Comment: React.FC<CommentProps> = ({comment}) => {
-
   const dispatch = useAppDispatch();
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
@@ -23,8 +21,15 @@ export const Comment: React.FC<CommentProps> = ({comment}) => {
     },
   });
   const onSubmit: SubmitHandler<{body: string}> = ({body}) => {
-
-    // dispatch(addNewComment({text: data.text, prayerId: route.params.prayerId}));
+    console.log(body);
+    dispatch(
+      changeComment({
+        commentId: comment.id,
+        body: body,
+        created: comment.created,
+        prayerId: comment.prayerId,
+      }),
+    );
     setIsDisabled(true);
   };
 

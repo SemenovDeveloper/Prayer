@@ -25,9 +25,10 @@ export interface IPrayer {
 
 export interface IComment {
   id: number;
-  prayerId: number;
   body: string;
-  name: string;
+  created: string;
+  prayerId: number;
+  userId: number;
 }
 
 export interface IUser {

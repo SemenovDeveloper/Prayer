@@ -1,4 +1,4 @@
-import {IAddNewComment, IDeleteComment} from './type';
+import {IAddNewComment, IDeleteComment, IChangeComment} from './type';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {
   getComments,
@@ -72,4 +72,28 @@ function* deleteCommentWorker(action: PayloadAction<IDeleteComment>) {
 
 export function* deleteCommentWatcher() {
   yield takeLatest('deleteComment', deleteCommentWorker);
+}
+
+const changeCommentRequest = async (data: IChangeComment) => {
+  const requestData = {
+    body: data.body,
+    created: data.created,
+    prayerId: data.prayerId,
+  };
+  await api.put(`comments/${data.commentId}`, requestData);
+};
+
+function* changeCommentWorker(action: PayloadAction<IChangeComment>) {
+  try {
+    setCommentsIsLoading(true);
+    yield call(changeCommentRequest, action.payload);
+    yield put(getComments());
+  } catch (error: any) {
+    setCommentsError(error.message);
+    console.log(error.message);
+  }
+}
+
+export function* changeCommentWatcher() {
+  yield takeLatest('changeComment', changeCommentWorker);
 }

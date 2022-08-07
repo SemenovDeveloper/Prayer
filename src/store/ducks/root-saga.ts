@@ -2,6 +2,7 @@ import {all} from 'redux-saga/effects';
 import {addColumnWatcher, getColumnsWatcher} from './column';
 import {
   addNewCommentWatcher,
+  changeCommentWatcher,
   deleteCommentWatcher,
   getCommentsWatcher,
 } from './comment';
@@ -26,5 +27,6 @@ export function* rootSaga() {
     addNewCommentWatcher(),
     getCommentsWatcher(),
     deleteCommentWatcher(),
+    changeCommentWatcher(),
   ]);
 }

@@ -1,13 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useRoute, RouteProp} from '@react-navigation/native';
 import colors from 'src/styles/colors';
 import PlusIcon from 'src/assets/icons/plus-icon';
@@ -33,6 +25,7 @@ export const Card = () => {
   useEffect(() => {
     dispatch(getComments());
   }, []);
+  const {error} = useAppSelector(state => state.comment.error);
   const comments = useAppSelector(state =>
     state.comment.comments.filter(
       comment => comment.prayerId === route.params.prayerId,
@@ -50,7 +43,7 @@ export const Card = () => {
     reset({text: ''});
   };
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{route.params.prayerTitle}</Text>
       </View>
@@ -93,9 +86,13 @@ export const Card = () => {
           </View>
         </View>
       </View>
+      <Text style={styles.commentsTitle}>COMMENTS</Text>
       <Comments comments={comments} />
+      {error && <Text>{error}</Text>}
       <View style={styles.inputBlock}>
-        <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.commentButton}>
+        <TouchableOpacity
+          onPress={handleSubmit(onSubmit)}
+          style={styles.commentButton}>
           <CommentIcon />
         </TouchableOpacity>
         <Controller
@@ -112,13 +109,14 @@ export const Card = () => {
           rules={{required: true}}
         />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#ffffff',
+    height: '100%',
   },
   titleContainer: {
     backgroundColor: colors.beige,
@@ -208,6 +206,14 @@ const styles = StyleSheet.create({
   image: {
     borderRadius: 50,
     marginRight: 5,
+  },
+  commentsTitle: {
+    fontFamily: 'SFUIText-Regular',
+    color: colors.blue,
+    fontSize: 13,
+    lineHeight: 15,
+    marginBottom: 15,
+    paddingHorizontal: 15,
   },
   plusButton: {
     width: 32,
