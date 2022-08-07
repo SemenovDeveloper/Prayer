@@ -12,7 +12,7 @@ import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {IPrayer} from 'src/types';
 import {addNewPrayer, deletePrayer} from 'src/store/ducks/prayers';
 import {Button, Container, Loader, PrayerItem} from 'src/components';
-import PlusIcon from 'src/assets/icons/plus-icon';
+import {PlusIcon} from 'src/assets';
 import {getColumns} from 'src/store/ducks';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileScreenNavigationProp} from 'src/navigations';

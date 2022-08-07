@@ -1,1 +1,1 @@
-export * from './add-column-button'
+export * from './add-column-button';

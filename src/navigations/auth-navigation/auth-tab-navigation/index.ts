@@ -1,1 +1,1 @@
-export * from "./auth-tab-navigation"
+export * from './auth-tab-navigation';

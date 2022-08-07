@@ -14,8 +14,6 @@ export const AuthNavigation = () => {
           component={AuthTabNavigation}
           options={{
             title: 'PrayerX',
-            headerStyle: {
-            },
             headerTitleStyle: {
               fontSize: 17,
               fontWeight: 'bold',

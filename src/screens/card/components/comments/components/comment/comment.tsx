@@ -21,7 +21,6 @@ export const Comment: React.FC<CommentProps> = ({comment}) => {
     },
   });
   const onSubmit: SubmitHandler<{body: string}> = ({body}) => {
-    console.log(body);
     dispatch(
       changeComment({
         commentId: comment.id,

@@ -42,7 +42,7 @@ function* signInWorker(
 ) {
   const {email, password} = action.payload;
   const signInData = {email, password};
-  
+
   try {
     yield put(isLoading(true));
     const response: IUser = yield call(signInRequest, signInData);

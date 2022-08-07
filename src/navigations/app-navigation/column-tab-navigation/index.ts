@@ -1,1 +1,1 @@
-export * from './column-tab-navigation'
+export * from './column-tab-navigation';

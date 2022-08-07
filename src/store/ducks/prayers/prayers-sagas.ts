@@ -2,7 +2,6 @@ import {takeLatest, put, call} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {api} from 'src/api';
 import {
-  updatePrayer,
   getPrayers,
   setPrayers,
   setPrayersError,

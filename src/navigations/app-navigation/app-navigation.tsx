@@ -2,7 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Card, ColumnsList, AddColumnForm} from 'src/screens';
 import {NavigationContainer} from '@react-navigation/native';
-import {AddColumnButton} from 'src/components/ui/add-column-button';
+import {AddColumnButton} from 'src/components';
 import {route} from './routes';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StyleSheet, TouchableHighlight} from 'react-native';

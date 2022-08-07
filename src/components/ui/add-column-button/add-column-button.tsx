@@ -1,6 +1,6 @@
 import {TouchableHighlight} from 'react-native';
 import React from 'react';
-import PlusIcon from 'src/assets/icons/plus-icon';
+import {PlusIcon} from 'src/assets';
 
 interface IAddColumnButton {
   onPress: () => void;

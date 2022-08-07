@@ -1,8 +1,6 @@
-import { ActivityIndicator } from 'react-native'
-import React from 'react'
+import {ActivityIndicator} from 'react-native';
+import React from 'react';
 
 export const Loader = () => {
-  return (
-    <ActivityIndicator size='large' color='#BFB393'/>
-  )
-}
+  return <ActivityIndicator size="large" color="#BFB393" />;
+};

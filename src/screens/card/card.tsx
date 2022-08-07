@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useRoute, RouteProp} from '@react-navigation/native';
 import colors from 'src/styles/colors';
-import PlusIcon from 'src/assets/icons/plus-icon';
+import {PlusIcon} from 'src/assets/icons/plus-icon';
 import {Controller, useForm, SubmitHandler} from 'react-hook-form';
 import {CustomInput} from 'src/components';
 import {CommentIcon} from 'src/assets';

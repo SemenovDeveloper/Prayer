@@ -12,7 +12,7 @@ const initialState: IUserState = {
 export const userReducer = createReducer<IUserState>(initialState, {
   [isLoading.type]: (state, action: PayloadAction<boolean>) => {
     state.isLoading = action.payload;
-    state.error = ''
+    state.error = '';
   },
   [signInSuccess.type]: (state, action: PayloadAction<IUser>) => {
     state.user = action.payload;
