@@ -1,44 +1,49 @@
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+  ListRenderItemInfo,
+} from 'react-native';
 import React from 'react';
 import {IComment} from 'src/types';
 import {Comment} from './components/comment/comment';
 import colors from 'src/styles/colors';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {Button} from 'src/components';
+import {useAppDispatch} from 'src/hooks';
+import {deleteComment} from 'src/store/ducks/comment';
 
 interface IComments {
   comments: IComment[];
 }
 
 export const Comments: React.FC<IComments> = ({comments}) => {
-  const deleteRow = () => {
-    console.log('====================================');
-    console.log('delete');
-    console.log('====================================');
-  };
+  const dispatch = useAppDispatch();
 
-  const renderHiddenItem = () => {
+  const renderHiddenItem = (data: ListRenderItemInfo<IComment>) => {
     return (
       <TouchableHighlight style={styles.rowBack}>
-        <Button onPress={deleteRow} title={'Delete'} deleteType={true} />
+        <Button
+          onPress={() => dispatch(deleteComment(data.item.id))}
+          title={'Delete'}
+          deleteType={true}
+        />
       </TouchableHighlight>
     );
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>COMMENTS</Text>
-      <SwipeListView
-        data={comments}
-        extraData={comments}
-        style={styles.swipeList}
-        rightOpenValue={-80}
-        removeClippedSubviews={false}
-        useNativeDriver={false}
-        renderItem={data => <Comment key={data.item.id} comment={data.item} />}
-        renderHiddenItem={renderHiddenItem}
-      />
-    </View>
+    <SwipeListView
+      data={comments}
+      extraData={comments}
+      style={styles.swipeList}
+      rightOpenValue={-80}
+      removeClippedSubviews={false}
+      useNativeDriver={false}
+      renderItem={data => <Comment key={data.item.id} comment={data.item} />}
+      renderHiddenItem={renderHiddenItem}
+    />
   );
 };
 

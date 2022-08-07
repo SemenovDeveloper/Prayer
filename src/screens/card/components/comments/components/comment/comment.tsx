@@ -34,7 +34,7 @@ export const Comment: React.FC<CommentProps> = ({comment}) => {
         source={require('src/assets/img/photo1.png')}
         style={styles.image}
       />
-      <TouchableOpacity onPress={() => setIsDisabled(false)}>
+      <TouchableOpacity onLongPress={() => setIsDisabled(false)}>
         <View style={styles.textBlock}>
           <Text style={styles.commentAuthor}>
             Anna Barber <Text style={styles.commentDate}> 2 days ago</Text>

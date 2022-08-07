@@ -1,4 +1,4 @@
-import {IAddNewComment} from './type';
+import {IAddNewComment, IDeleteComment} from './type';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {
   getComments,
@@ -9,7 +9,7 @@ import {
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {IComment} from 'src/types';
 import {api} from 'src/api';
-import { getDate, useDate } from 'src/hooks/useDate';
+import {getDate} from 'src/hooks/useDate';
 
 const fetchComments = async () => {
   const response = await api.get('comments');
@@ -53,4 +53,23 @@ function* addNewCommentWorker(action: PayloadAction<IAddNewComment>) {
 
 export function* addNewCommentWatcher() {
   yield takeLatest('addNewComment', addNewCommentWorker);
+}
+
+const deleteCommentRequest = async (data: IDeleteComment) => {
+  await api.delete(`comments/${data}`);
+};
+
+function* deleteCommentWorker(action: PayloadAction<IDeleteComment>) {
+  try {
+    setCommentsIsLoading(true);
+    yield call(deleteCommentRequest, action.payload);
+    yield put(getComments());
+  } catch (error: any) {
+    setCommentsError(error.message);
+    console.log(error.message);
+  }
+}
+
+export function* deleteCommentWatcher() {
+  yield takeLatest('deleteComment', deleteCommentWorker);
 }

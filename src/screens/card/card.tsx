@@ -95,7 +95,7 @@ export const Card = () => {
       </View>
       <Comments comments={comments} />
       <View style={styles.inputBlock}>
-        <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+        <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.commentButton}>
           <CommentIcon />
         </TouchableOpacity>
         <Controller
@@ -230,5 +230,8 @@ const styles = StyleSheet.create({
     fontFamily: 'SFUIText-Regular',
     fontSize: 17,
     color: '#9C9C9C',
+  },
+  commentButton: {
+    marginRight: 10,
   },
 });

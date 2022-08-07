@@ -5,7 +5,7 @@ import {
   ListRenderItemInfo,
   View,
 } from 'react-native';
-import {RowMap, SwipeListView} from 'react-native-swipe-list-view';
+import {SwipeListView} from 'react-native-swipe-list-view';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {IPrayer} from 'src/types';
 import {Button, Container, PrayerItem} from 'src/components';
@@ -36,25 +36,15 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
     [prayers, columnId],
   );
 
-  const deleteRow = (rowMap: RowMap<IPrayer>, prayerId: number) => {
-    closeRow(rowMap, prayerId);
+  const deleteRow = (prayerId: number) => {
     dispatch(deletePrayer(prayerId));
   };
 
-  const closeRow = (rowMap: RowMap<IPrayer>, prayerId: number) => {
-    if (rowMap[`${prayerId}`]) {
-      rowMap[`${prayerId}`].closeRow();
-    }
-  };
-
-  const renderHiddenItem = (
-    data: ListRenderItemInfo<IPrayer>,
-    rowMap: RowMap<IPrayer>,
-  ) => {
+  const renderHiddenItem = (data: ListRenderItemInfo<IPrayer>) => {
     return (
       <TouchableHighlight style={styles.rowBack}>
         <Button
-          onPress={() => deleteRow(rowMap, data.item.id)}
+          onPress={() => deleteRow(data.item.id)}
           title={'Delete'}
           deleteType={true}
         />
