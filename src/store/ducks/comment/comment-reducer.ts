@@ -25,7 +25,6 @@ export const commentReducer = createReducer<ICommentsState>(initialState, {
     state.error = '';
   },
   [setComments.type]: (state, action: PayloadAction<IComment[]>) => {
-    console.log(action.payload);
     state.comments = action.payload;
     state.isLoading = false;
     state.error = '';

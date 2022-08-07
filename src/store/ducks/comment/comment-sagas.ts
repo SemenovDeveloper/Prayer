@@ -9,6 +9,7 @@ import {
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {IComment} from 'src/types';
 import {api} from 'src/api';
+import { getDate, useDate } from 'src/hooks/useDate';
 
 const fetchComments = async () => {
   const response = await api.get('comments');
@@ -30,16 +31,20 @@ export function* getCommentsWatcher() {
 }
 
 const postNewComment = async (data: IAddNewComment) => {
-  // const response = await api.post('/prayers', data);
-  // return response.data;
+  const date = getDate();
+  const requestData = {
+    body: data.text,
+    created: date,
+    prayerId: data.prayerId,
+  };
+  await api.post('comments', requestData);
 };
 
 function* addNewCommentWorker(action: PayloadAction<IAddNewComment>) {
   try {
     setCommentsIsLoading(true);
+    yield call(postNewComment, action.payload);
     yield put(getComments());
-    // yield call(postNewComment, action.payload);
-    // yield put(getPrayers());
   } catch (error: any) {
     setCommentsError(error.message);
     console.log(error.message);

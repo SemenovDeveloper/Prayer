@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
   },
   rowBack: {
     width: '100%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'row-reverse',
   },

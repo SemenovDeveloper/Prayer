@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -14,8 +15,8 @@ import {Controller, useForm, SubmitHandler} from 'react-hook-form';
 import {CustomInput} from 'src/components';
 import {CommentIcon} from 'src/assets';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
-import {addNewComment} from 'src/store/ducks/comment';
-import { Comments } from './components/comments/comments';
+import {addNewComment, getComments} from 'src/store/ducks/comment';
+import {Comments} from './components/comments/comments';
 
 interface ICard {
   prayerId: number;
@@ -29,6 +30,9 @@ interface IAddComment {
 export const Card = () => {
   const route = useRoute<RouteProp<{params: ICard}, 'params'>>();
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getComments());
+  }, []);
   const comments = useAppSelector(state =>
     state.comment.comments.filter(
       comment => comment.prayerId === route.params.prayerId,
@@ -45,7 +49,6 @@ export const Card = () => {
     dispatch(addNewComment({text: data.text, prayerId: route.params.prayerId}));
     reset({text: ''});
   };
-
   return (
     <ScrollView style={styles.container}>
       <View style={styles.titleContainer}>
@@ -74,7 +77,6 @@ export const Card = () => {
           <Text style={styles.text}>Times Prayed by Others</Text>
         </View>
       </View>
-      <Comments comments={comments} />
       <View style={styles.membersContainer}>
         <Text style={styles.membersTitle}>MEMBERS</Text>
         <View style={styles.membersBlock}>
@@ -91,6 +93,7 @@ export const Card = () => {
           </View>
         </View>
       </View>
+      <Comments comments={comments} />
       <View style={styles.inputBlock}>
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <CommentIcon />
