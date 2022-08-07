@@ -11,3 +11,10 @@ export interface IAddColumn {
   description: string;
   prayerId: number;
 }
+
+export interface IUpdateColumn {
+  title: string;
+  description: string;
+  prayerId: number;
+  columnId: number;
+}

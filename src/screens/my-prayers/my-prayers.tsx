@@ -1,16 +1,17 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   StyleSheet,
   TouchableHighlight,
   ListRenderItemInfo,
   View,
   TextInput,
+  Text,
 } from 'react-native';
 import {RowMap, SwipeListView} from 'react-native-swipe-list-view';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {IPrayer} from 'src/types';
 import {addNewPrayer, deletePrayer} from 'src/store/ducks/prayers';
-import {Button, Container, PrayerItem} from 'src/components';
+import {Button, Container, Loader, PrayerItem} from 'src/components';
 import PlusIcon from 'src/assets/icons/plus-icon';
 import {getColumns} from 'src/store/ducks';
 
@@ -22,6 +23,7 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
   const dispatch = useAppDispatch();
   const [newPrayerName, setNewPrayerName] = useState('');
   const [isAnsweredVisible, setIsAnsweredVisible] = useState(false);
+  const {error, isLoading} = useAppSelector(state => state.prayers);
   const checkedPrayers = useAppSelector(state =>
     state.prayers.prayers.filter(
       item => item.columnId === columnId && item.checked === true,
@@ -32,6 +34,10 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
       item => item.columnId === columnId && item.checked !== true,
     ),
   );
+
+  useEffect(() => {
+    dispatch(getColumns());
+  }, []);
 
   const deleteRow = (prayerId: number) => {
     dispatch(deletePrayer(prayerId));
@@ -79,18 +85,23 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
             value={newPrayerName}
           />
         </View>
-        <SwipeListView
-          style={styles.swipeList}
-          data={checkedPrayers}
-          extraData={checkedPrayers}
-          rightOpenValue={-80}
-          removeClippedSubviews={false}
-          useNativeDriver={false}
-          renderItem={data => (
-            <PrayerItem key={data.item.id} item={data.item} />
-          )}
-          renderHiddenItem={renderHiddenItem}
-        />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <SwipeListView
+            style={styles.swipeList}
+            data={checkedPrayers}
+            extraData={checkedPrayers}
+            rightOpenValue={-80}
+            removeClippedSubviews={false}
+            useNativeDriver={false}
+            renderItem={data => (
+              <PrayerItem key={data.item.id} item={data.item} />
+            )}
+            renderHiddenItem={renderHiddenItem}
+          />
+        )}
+        {error && <Text>{error}</Text>}
         <Button
           onPress={() => setIsAnsweredVisible(!isAnsweredVisible)}
           title={

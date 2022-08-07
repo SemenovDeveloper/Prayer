@@ -3,12 +3,13 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import {api} from 'src/api';
 import {IColumn} from 'src/types';
 import {
+  getColumns,
   setColumns,
   setColumnsError,
   setColumnsIsLoading,
   setNewColumn,
 } from './column-actions';
-import {IAddColumn} from './types';
+import {IAddColumn, IUpdateColumn} from './types';
 
 const fetchColumns = async () => {
   const response = await api.get('columns');
@@ -47,4 +48,47 @@ export function* addColumnWorker(action: PayloadAction<IAddColumn>) {
 
 export function* addColumnWatcher() {
   yield takeLatest('addColumn', addColumnWorker);
+}
+
+const deleteColumnRequest = async (data: number) => {
+  await api.delete(`columns/${data}`);
+};
+
+function* deleteColumnWorker(action: PayloadAction<number>) {
+  try {
+    setColumnsIsLoading(true);
+    yield call(deleteColumnRequest, action.payload);
+    yield put(getColumns());
+  } catch (error: any) {
+    setColumnsError(error.message);
+    console.log(error.message);
+  }
+}
+
+export function* deleteColumnWatcher() {
+  yield takeLatest('deleteColumn', deleteColumnWorker);
+}
+
+const updateColumnRequest = async (data: IUpdateColumn) => {
+  const requestData = {
+    title: data.title,
+    description: data.description,
+    prayerId: data.prayerId,
+  };
+  await api.put(`columns/${data.columnId}`, requestData);
+};
+
+export function* updateColumnWorker(action: PayloadAction<IUpdateColumn>) {
+  try {
+    setColumnsIsLoading(true);
+    yield call(updateColumnRequest, action.payload);
+    yield put(getColumns());
+  } catch (error: any) {
+    setColumnsError(error.message);
+    console.log(error.message);
+  }
+}
+
+export function* updateColumnWatcher() {
+  yield takeLatest('updateColumn', updateColumnWorker);
 }

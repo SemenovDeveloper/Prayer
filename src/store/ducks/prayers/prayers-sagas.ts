@@ -73,7 +73,7 @@ export function* deletePrayerWatcher() {
 const updatePrayerRequest = async (data: IUpdatePrayer) => {
   const requestData = {
     title: data.title,
-    description: data.prayerId,
+    description: data.description,
     checked: data.checked,
     columnId: data.columnId,
   };
