@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import {IPrayer} from 'src/types';
-import {StateIcon} from 'src/assets/icons/state-icon';
+import {StateIcon} from 'src/assets/icons';
 import {OffIcon, OnIcon, PrayerIcon, UserIcon} from 'src/assets';
 import {useAppDispatch} from 'src/hooks';
-import {checkPrayer} from 'src/store/ducks/prayers';
+import {updatePrayer} from 'src/store/ducks/prayers';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileScreenNavigationProp} from 'src/navigations';
+import {Controller, useForm, SubmitHandler} from 'react-hook-form';
+import {CustomInput} from 'src/components';
 
 interface IPrayerItem {
   item: IPrayer;
@@ -14,6 +16,7 @@ interface IPrayerItem {
 
 export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const dispatch = useAppDispatch();
 
   const handleCheckboxClick = () => {
@@ -24,7 +27,24 @@ export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
       columnId: item.columnId,
       prayerId: item.id,
     };
-    dispatch(checkPrayer(data));
+    dispatch(updatePrayer(data));
+  };
+
+  const {handleSubmit, control} = useForm({
+    defaultValues: {
+      title: item.title,
+    },
+  });
+  const onSubmit: SubmitHandler<{title: string}> = ({title}) => {
+    const data = {
+      title: title,
+      description: item.description,
+      checked: item.checked,
+      columnId: item.columnId,
+      prayerId: item.id,
+    };
+    dispatch(updatePrayer(data));
+    setIsDisabled(true);
   };
 
   return (
@@ -38,15 +58,33 @@ export const PrayerItem: React.FC<IPrayerItem> = ({item}) => {
         </View>
       </TouchableHighlight>
       <TouchableHighlight
+        style={styles.name}
+        onLongPress={() => setIsDisabled(false)}
         onPress={() =>
           navigation.navigate('Card', {
             prayerId: item.id,
             prayerTitle: item.title,
           })
         }>
-        <Text style={styles.prayerTitle}>{item.title}</Text>
+        {isDisabled ? (
+          <Text>{item.title}</Text>
+        ) : (
+          <Controller
+            control={control}
+            render={({field: {onChange, value}}) => (
+              <CustomInput
+                isDisable={isDisabled}
+                placeholder={item.title}
+                onBlur={handleSubmit(onSubmit)}
+                onChangeText={value => onChange(value)}
+                value={value}
+              />
+            )}
+            name="title"
+            rules={{required: true}}
+          />
+        )}
       </TouchableHighlight>
-
       <View style={styles.iconContainer}>
         <UserIcon />
         <Text style={styles.count}>3</Text>
@@ -120,5 +158,8 @@ const styles = StyleSheet.create({
     lineHeight: 14,
     letterSpacing: -0.024,
     marginLeft: 5,
+  },
+  name: {
+    width: 200,
   },
 });

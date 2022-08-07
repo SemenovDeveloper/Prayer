@@ -5,7 +5,7 @@ export interface IAddNewPrayer {
   checked: boolean;
 }
 
-export interface ICheckPrayer {
+export interface IUpdatePrayer {
   columnId: number;
   title: string;
   description: string;

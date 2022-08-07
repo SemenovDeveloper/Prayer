@@ -29,7 +29,7 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
   );
   const uncheckedPrayers = useAppSelector(state =>
     state.prayers.prayers.filter(
-      item => item.columnId !== columnId && item.checked === true,
+      item => item.columnId === columnId && item.checked !== true,
     ),
   );
 

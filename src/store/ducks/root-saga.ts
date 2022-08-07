@@ -8,7 +8,7 @@ import {
 } from './comment';
 import {
   addNewPrayerWatcher,
-  checkPrayerWatcher,
+  updatePrayerWatcher,
   deletePrayerWatcher,
   getPrayersWatcher,
 } from './prayers/prayers-sagas';
@@ -23,7 +23,7 @@ export function* rootSaga() {
     addColumnWatcher(),
     addNewPrayerWatcher(),
     deletePrayerWatcher(),
-    checkPrayerWatcher(),
+    updatePrayerWatcher(),
     addNewCommentWatcher(),
     getCommentsWatcher(),
     deleteCommentWatcher(),
