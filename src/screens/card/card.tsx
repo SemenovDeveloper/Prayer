@@ -7,8 +7,13 @@ import {Controller, useForm, SubmitHandler} from 'react-hook-form';
 import {CustomInput} from 'src/components';
 import {CommentIcon} from 'src/assets';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
-import {addNewComment, getComments} from 'src/store/ducks';
+import {
+  addNewComment,
+  getComments,
+  selectCommentsForCard,
+} from 'src/store/ducks';
 import {Comments} from './components';
+import {useSelector} from 'react-redux';
 
 interface ICard {
   prayerId: number;
@@ -22,15 +27,12 @@ interface IAddComment {
 export const Card = () => {
   const route = useRoute<RouteProp<{params: ICard}, 'params'>>();
   const dispatch = useAppDispatch();
+  const {error} = useAppSelector(state => state.comment);
+  const comments = useSelector(selectCommentsForCard(route.params.prayerId));
+
   useEffect(() => {
     dispatch(getComments());
-  }, []);
-  const {error} = useAppSelector(state => state.comment);
-  const comments = useAppSelector(state =>
-    state.comment.comments.filter(
-      comment => comment.prayerId === route.params.prayerId,
-    ),
-  );
+  }, [dispatch]);
 
   const {handleSubmit, control, reset} = useForm({
     defaultValues: {
@@ -42,6 +44,7 @@ export const Card = () => {
     dispatch(addNewComment({text: data.text, prayerId: route.params.prayerId}));
     reset({text: ''});
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>

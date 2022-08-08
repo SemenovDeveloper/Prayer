@@ -12,6 +12,11 @@ import {Button, Container, PrayerItem} from 'src/components';
 import {deletePrayer} from 'src/store/ducks/prayers';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileScreenNavigationProp} from 'src/navigations';
+import {useSelector} from 'react-redux';
+import {
+  selectCheckedPrayersForColumn,
+  selectUncheckedPrayersForColumn,
+} from 'src/store/ducks/prayers';
 
 interface ISubscribed {
   columnId: number;
@@ -21,15 +26,9 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
   const dispatch = useAppDispatch();
   const [isAnsweredVisible, setIsAnsweredVisible] = useState(false);
-  const checkedPrayers = useAppSelector(state =>
-    state.prayers.prayers.filter(
-      item => item.columnId === columnId && item.checked === true,
-    ),
-  );
-  const uncheckedPrayers = useAppSelector(state =>
-    state.prayers.prayers.filter(
-      item => item.columnId === columnId && item.checked !== true,
-    ),
+  const checkedPrayers = useSelector(selectCheckedPrayersForColumn(columnId));
+  const uncheckedPrayers = useSelector(
+    selectUncheckedPrayersForColumn(columnId),
   );
 
   const deleteRow = (prayerId: number) => {

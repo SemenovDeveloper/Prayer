@@ -13,9 +13,13 @@ import {IPrayer} from 'src/types';
 import {addNewPrayer, deletePrayer} from 'src/store/ducks/prayers';
 import {Button, Container, Loader, PrayerItem} from 'src/components';
 import {PlusIcon} from 'src/assets';
-import {getColumns} from 'src/store/ducks';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileScreenNavigationProp} from 'src/navigations';
+import {useSelector} from 'react-redux';
+import {
+  selectCheckedPrayersForColumn,
+  selectUncheckedPrayersForColumn,
+} from 'src/store/ducks/prayers';
 
 interface IMyPrayers {
   columnId: number;
@@ -27,15 +31,9 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
   const [newPrayerName, setNewPrayerName] = useState('');
   const [isAnsweredVisible, setIsAnsweredVisible] = useState(false);
   const {error, isLoading} = useAppSelector(state => state.prayers);
-  const checkedPrayers = useAppSelector(state =>
-    state.prayers.prayers.filter(
-      item => item.columnId === columnId && item.checked === true,
-    ),
-  );
-  const uncheckedPrayers = useAppSelector(state =>
-    state.prayers.prayers.filter(
-      item => item.columnId === columnId && item.checked !== true,
-    ),
+  const checkedPrayers = useSelector(selectCheckedPrayersForColumn(columnId));
+  const uncheckedPrayers = useSelector(
+    selectUncheckedPrayersForColumn(columnId),
   );
 
   const deleteRow = (prayerId: number) => {
@@ -52,7 +50,6 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
           checked: true,
         }),
       );
-      dispatch(getColumns());
       setNewPrayerName('');
     }
   };
