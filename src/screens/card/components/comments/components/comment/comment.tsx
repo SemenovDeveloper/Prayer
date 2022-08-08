@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {IComment} from 'src/types';
-import {useAppDispatch} from 'src/hooks';
+import {useAppDispatch, useAppSelector} from 'src/hooks';
 import colors from 'src/styles/colors';
 import {Controller, useForm, SubmitHandler} from 'react-hook-form';
 import {CustomInput} from 'src/components';
@@ -14,6 +14,7 @@ type CommentProps = {
 export const Comment: React.FC<CommentProps> = ({comment}) => {
   const dispatch = useAppDispatch();
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const name = useAppSelector(state => state.user.user.name);
 
   const {handleSubmit, control} = useForm({
     defaultValues: {
@@ -41,7 +42,7 @@ export const Comment: React.FC<CommentProps> = ({comment}) => {
       <TouchableOpacity onLongPress={() => setIsDisabled(false)}>
         <View style={styles.textBlock}>
           <Text style={styles.commentAuthor}>
-            Anna Barber <Text style={styles.commentDate}> 2 days ago</Text>
+            {name} <Text style={styles.commentDate}> 2 days ago</Text>
           </Text>
 
           <Controller

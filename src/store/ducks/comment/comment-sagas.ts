@@ -78,7 +78,6 @@ const changeCommentRequest = async (data: IChangeComment) => {
   const requestData = {
     body: data.body,
     created: data.created,
-    prayerId: data.prayerId,
   };
   await api.put(`comments/${data.commentId}`, requestData);
 };

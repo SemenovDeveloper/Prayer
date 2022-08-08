@@ -73,7 +73,6 @@ const updateColumnRequest = async (data: IUpdateColumn) => {
   const requestData = {
     title: data.title,
     description: data.description,
-    prayerId: data.prayerId,
   };
   await api.put(`columns/${data.columnId}`, requestData);
 };
