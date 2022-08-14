@@ -1,5 +1,5 @@
 import {StyleSheet, TextInput} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import colors from 'src/styles/colors';
 
 interface ICustomInput {
@@ -17,6 +17,16 @@ export const CustomInput: React.FC<ICustomInput> = ({
   onBlur,
   isDisable,
 }) => {
+  const input = React.useRef<TextInput>(null);
+
+  useEffect(() => {
+    if (!isDisable) {
+      if (input.current) {
+        input.current.focus();
+      }
+    }
+  }, [isDisable]);
+
   return (
     <TextInput
       editable={isDisable ? false : true}
@@ -25,6 +35,8 @@ export const CustomInput: React.FC<ICustomInput> = ({
       onBlur={onBlur}
       onChangeText={onChangeText}
       value={value}
+      autoFocus
+      ref={input}
     />
   );
 };
