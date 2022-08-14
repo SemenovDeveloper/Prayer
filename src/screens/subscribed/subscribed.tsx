@@ -4,12 +4,15 @@ import {
   TouchableHighlight,
   ListRenderItemInfo,
   View,
+  TextInput,
+  Text,
 } from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {IPrayer} from 'src/types';
-import {Button, Container, PrayerItem} from 'src/components';
-import {deletePrayer} from 'src/store/ducks/prayers';
+import {addNewPrayer, deletePrayer} from 'src/store/ducks/prayers';
+import {Button, Container, Loader, PrayerItem} from 'src/components';
+import {PlusIcon} from 'src/assets';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileScreenNavigationProp} from 'src/navigations';
 import {useSelector} from 'react-redux';
@@ -18,14 +21,16 @@ import {
   selectUncheckedPrayersForColumn,
 } from 'src/store/ducks/prayers';
 
-interface ISubscribed {
+interface IMyPrayers {
   columnId: number;
 }
 
-export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
-  const navigation = useNavigation<ProfileScreenNavigationProp>();
+export const Subscribed: React.FC<IMyPrayers> = ({columnId}) => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const [newPrayerName, setNewPrayerName] = useState('');
   const [isAnsweredVisible, setIsAnsweredVisible] = useState(false);
+  const {error, isLoading} = useAppSelector(state => state.prayers);
   const checkedPrayers = useSelector(selectCheckedPrayersForColumn(columnId));
   const uncheckedPrayers = useSelector(
     selectUncheckedPrayersForColumn(columnId),
@@ -34,6 +39,21 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
   const deleteRow = (prayerId: number) => {
     dispatch(deletePrayer(prayerId));
   };
+
+  const handleSubmit = () => {
+    if (newPrayerName) {
+      dispatch(
+        addNewPrayer({
+          title: newPrayerName,
+          columnId: columnId,
+          description: '',
+          checked: true,
+        }),
+      );
+      setNewPrayerName('');
+    }
+  };
+
   const cardNavigation = (id: number, title: string) => {
     navigation.navigate('Card', {
       prayerId: id,
@@ -55,23 +75,28 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
 
   return (
     <Container>
-      <View style={styles.prayersBlock}>
-        <SwipeListView
-          data={checkedPrayers}
-          extraData={checkedPrayers}
-          style={styles.swipeList}
-          rightOpenValue={-80}
-          removeClippedSubviews={false}
-          useNativeDriver={false}
-          renderItem={data => (
-            <PrayerItem
-              key={data.item.id}
-              item={data.item}
-              cardNavigation={cardNavigation}
-            />
-          )}
-          renderHiddenItem={renderHiddenItem}
-        />
+      <View style={styles.prayers}>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <SwipeListView
+            data={checkedPrayers}
+            extraData={checkedPrayers}
+            style={styles.swipeList}
+            rightOpenValue={-80}
+            removeClippedSubviews={false}
+            useNativeDriver={false}
+            renderItem={data => (
+              <PrayerItem
+                key={data.item.id}
+                item={data.item}
+                cardNavigation={cardNavigation}
+              />
+            )}
+            renderHiddenItem={renderHiddenItem}
+          />
+        )}
+        {error && <Text>{error}</Text>}
         <Button
           onPress={() => setIsAnsweredVisible(!isAnsweredVisible)}
           title={
@@ -104,10 +129,25 @@ export const Subscribed: React.FC<ISubscribed> = ({columnId}) => {
 };
 
 const styles = StyleSheet.create({
+  prayers: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  swipeList: {
+    marginTop: 17,
+    width: '100%',
+  },
+  rowBack: {
+    width: '100%',
+    height: 59,
+    display: 'flex',
+    flexDirection: 'row-reverse',
+  },
   inputBlock: {
     width: '100%',
     height: 50,
-    marginBottom: 17,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -121,21 +161,5 @@ const styles = StyleSheet.create({
   },
   input: {
     marginLeft: 14,
-  },
-  rowBack: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'row-reverse',
-  },
-  prayersBlock: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  swipeList: {
-    marginTop: 17,
   },
 });

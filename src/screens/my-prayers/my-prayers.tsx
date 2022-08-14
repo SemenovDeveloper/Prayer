@@ -75,7 +75,7 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
 
   return (
     <Container>
-      <View style={styles.prayersBlock}>
+      <View style={styles.prayers}>
         <View style={styles.inputBlock}>
           <PlusIcon />
           <TextInput
@@ -92,9 +92,9 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
           <Loader />
         ) : (
           <SwipeListView
-            style={styles.swipeList}
             data={checkedPrayers}
             extraData={checkedPrayers}
+            style={styles.swipeList}
             rightOpenValue={-80}
             removeClippedSubviews={false}
             useNativeDriver={false}
@@ -119,9 +119,9 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
         />
         {isAnsweredVisible && (
           <SwipeListView
-            style={styles.swipeList}
             data={uncheckedPrayers}
             extraData={uncheckedPrayers}
+            style={styles.swipeList}
             rightOpenValue={-80}
             removeClippedSubviews={false}
             useNativeDriver={false}
@@ -141,6 +141,22 @@ export const MyPrayers: React.FC<IMyPrayers> = ({columnId}) => {
 };
 
 const styles = StyleSheet.create({
+  prayers: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  swipeList: {
+    marginTop: 17,
+    width: '100%',
+  },
+  rowBack: {
+    width: '100%',
+    height: 59,
+    display: 'flex',
+    flexDirection: 'row-reverse',
+  },
   inputBlock: {
     width: '100%',
     height: 50,
@@ -157,21 +173,5 @@ const styles = StyleSheet.create({
   },
   input: {
     marginLeft: 14,
-  },
-  rowBack: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'row-reverse',
-  },
-  prayersBlock: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  swipeList: {
-    marginTop: 17,
   },
 });
