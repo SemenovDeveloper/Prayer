@@ -7,6 +7,7 @@ import {useAppDispatch} from 'src/hooks';
 import {updatePrayer} from 'src/store/ducks/prayers';
 import {Controller, useForm, SubmitHandler} from 'react-hook-form';
 import {CustomInput} from 'src/components';
+import colors from 'src/styles/colors';
 
 interface IPrayerItem {
   item: IPrayer;
@@ -57,7 +58,6 @@ export const PrayerItem: React.FC<IPrayerItem> = ({item, cardNavigation}) => {
           </View>
         </TouchableHighlight>
         <TouchableHighlight
-          style={styles.name}
           onLongPress={() => setIsDisabled(false)}
           onPress={() => cardNavigation(item.id, item.title)}>
           {isDisabled ? (
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   prayerTitle: {
-    color: 'black',
+    color: colors.black,
     fontFamily: 'SF UI Text',
     fontSize: 17,
     fontWeight: '400',
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   count: {
     textAlign: 'center',
-    color: '#514D47',
+    color: colors.black,
     fontFamily: 'SF UI Text',
     fontSize: 12,
     fontWeight: '600',
